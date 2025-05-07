@@ -117,7 +117,6 @@ const BlogPreview = () => {
           <div className="relative flex items-center">
             <button
               onFocus={() => setOpen({ ...open, copyLink: true })}
-              onBlur={()=>setOpen({...open, copyLink:false})}
               onClick={()=>setOpen({...open, copyLink: !open.copyLink})}
               className="hover:scale-107 active:scale-100 transition duration-300 cursor-pointer text-neutral-400"
             >
