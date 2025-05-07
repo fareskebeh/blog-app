@@ -34,5 +34,6 @@ BACKEND/api/__pycache__/
 BACKEND/venv/
 BACKEND/.venv/
 BACKEND/__pycache__/
+BACKEND/blog/__pycache__/
 BACKEND/*.log
 BACKEND/media/
