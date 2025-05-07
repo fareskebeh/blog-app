@@ -37,3 +37,4 @@ BACKEND/__pycache__/
 BACKEND/blog/__pycache__/
 BACKEND/*.log
 BACKEND/media/
+*.pyc
