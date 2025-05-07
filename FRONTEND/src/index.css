@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Inter";
+    src: url(./assets/fonts/Inter-VariableFont_opszwght.ttf);
+}
+
+* {
+    font-family:"Inter"
+}
+
+@media only screen and (max-width:480px) {
+
+    .commenter {
+        @apply flex-col items-start
+    }
+
+    .commenter textarea {
+        @apply h-20 w-full
+    }
+
+    .commenter input {
+        @apply  w-[60%]
+    }
+
+    .copy {
+        @apply hidden
+    }
+
+    .genre {
+        @apply hidden
+    }
+
+    .blogtile img {
+        @apply hidden
+    }
+
+    .blogtile p {
+        @apply text-sm text-nowrap
+    }
+    
+    .blogtile h1 {
+        @apply text-base text-nowrap 
+    }
+
+}
+
+@keyframes l7 {to{transform: rotate(.5turn)}}
+
+
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    --_c:no-repeat radial-gradient(farthest-side,#2563eb 92%,#0000);
+    background: 
+      var(--_c) top,
+      var(--_c) left,
+      var(--_c) right,
+      var(--_c) bottom;
+    background-size: 12px 12px;
+    animation: l7 1s infinite;
+  }

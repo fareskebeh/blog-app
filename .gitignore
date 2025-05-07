@@ -1,0 +1,38 @@
+# ========== FRONTEND ==========
+# Logs
+FRONTEND/logs
+FRONTEND/*.log
+FRONTEND/npm-debug.log*
+FRONTEND/yarn-debug.log*
+FRONTEND/yarn-error.log*
+FRONTEND/pnpm-debug.log*
+FRONTEND/lerna-debug.log*
+
+# Dependencies and build
+FRONTEND/node_modules/
+FRONTEND/dist/
+FRONTEND/dist-ssr/
+FRONTEND/*.local
+
+# Editor configs
+FRONTEND/.vscode/*
+!FRONTEND/.vscode/extensions.json
+FRONTEND/.idea/
+FRONTEND/.DS_Store
+FRONTEND/*.suo
+FRONTEND/*.ntvs*
+FRONTEND/*.njsproj
+FRONTEND/*.sln
+FRONTEND/*.sw?
+
+FRONTEND/.env
+
+# ========== BACKEND ==========
+BACKEND/.env
+BACKEND/db.sqlite3
+BACKEND/api/__pycache__/
+BACKEND/venv/
+BACKEND/.venv/
+BACKEND/__pycache__/
+BACKEND/*.log
+BACKEND/media/
