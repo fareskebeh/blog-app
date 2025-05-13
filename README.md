@@ -2,9 +2,9 @@
 
 This is one of my first full-stack apps. It currently supports:
 
-- Previewing blog posts
+- Previewing blog posts 📖
 
-- Sharing blog links
+- Sharing blog links 🔗
 
 
 The main focus was on building a clean UI and ensuring responsive design. I may add more features in the future.
