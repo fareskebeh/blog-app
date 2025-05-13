@@ -6,6 +6,8 @@ This is one of my first full-stack apps. It currently supports:
 
 - Sharing blog links 🔗
 
+- A commenting feature 💬
+
 
 The main focus was on building a clean UI and ensuring responsive design. I may add more features in the future.
 
