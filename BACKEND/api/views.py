@@ -1,4 +1,5 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from .models import Post, Comment
 from django.db.models import Q
@@ -7,6 +8,7 @@ from .serializers import SinglePostSerializer, BulkPostSerializer, CommentSerial
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def post_list(request):
     if request.method == "GET":
         posts = Post.objects.all()
@@ -15,6 +17,7 @@ def post_list(request):
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def review_post(request, pk):
     try:
         post = Post.objects.get(id=pk)
@@ -46,6 +49,7 @@ def comment(request, pk):
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def latest(request):
     if request.method == "GET":
         try:
@@ -63,6 +67,7 @@ def like(request):
     pass
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def search(request):
     if request.method=="GET":
         query= request.GET.get("q", "").strip()
