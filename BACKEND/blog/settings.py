@@ -1,6 +1,7 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from datetime import timedelta
 
 load_dotenv()
 
@@ -24,9 +25,19 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework.authtoken",
     "corsheaders",
     "api",
+    "dj_rest_auth",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
+    'rest_framework_simplejwt'
 ]
+
+SITE_ID =1
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -37,7 +48,24 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware"
 ]
+
+REST_FRAMEWORK = {
+     "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated"
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    )    
+}
+
+REST_AUTH = {
+    'USE_JWT': True,
+    "JWT_AUTH_HTTPONLY":False,
+    'JWT_AUTH_COOKIE': 'blog-app-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'blog-refresh-token',
+}
 
 ROOT_URLCONF = "blog.urls"
 
@@ -95,3 +123,27 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
+
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_SIGNUP_FIELDS=['email*','username*','password1*','password2*']
+ACCOUNT_EMAIL_VERIFICATION="mandatory"
+ACCOUNT_UNIQUE_EMAIL = True
+
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS= True
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_PORT=587
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD=os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL=os.getenv("DEFAULT_FROM_EMAIL")
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=int(os.getenv("ACCESS_EXP"))),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=int(os.getenv("REFRESH_EXP"))),
+}
