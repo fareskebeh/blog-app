@@ -3,16 +3,18 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import BlogPreview from "./components/BlogPreview.jsx"
 import Nav from "./components/navigation/Nav.jsx";
 import { AuthProvider } from "./hooks/useAuth.jsx";
+import Login from "./authPages/Login.jsx";
 
 const App = () => {
 
   return (
     <Router>
       <AuthProvider>
-      <div className="bg-neutral-100 pt-20 dark:bg-neutral-950 transition duration-150">
+      <div className="bg-neutral-100 dark:bg-neutral-950 transition duration-150">
         <Nav/>
         <Routes>
         <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<Login/>} />
         <Route path="/post/:id" element={<BlogPreview/>} />
       </Routes>
       </div>
