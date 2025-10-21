@@ -1,5 +1,6 @@
 import { FaGithub, FaGoogle, FaFacebookF } from "react-icons/fa"
 import { HiOutlineMail } from "react-icons/hi"
+import { Link } from "react-router-dom"
 
 const Login = () => {
   return (
@@ -14,7 +15,7 @@ const Login = () => {
             </div>
 
             <div className="flex items-center justify-center dark:text-neutral-400 text-neutral-600">
-                <p className="flex items-center gap-2 cursor-pointer transition duration-150"><HiOutlineMail/>Continue with E-mail instead</p>
+                <Link to="/login-with-email" className="flex items-center gap-2 cursor-pointer transition hover:opacity-90 duration-150"><HiOutlineMail/>Continue with E-mail instead</Link>
             </div>
         </div>
         

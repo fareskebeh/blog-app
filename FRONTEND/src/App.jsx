@@ -4,6 +4,7 @@ import BlogPreview from "./components/BlogPreview.jsx"
 import Nav from "./components/navigation/Nav.jsx";
 import { AuthProvider } from "./hooks/useAuth.jsx";
 import Login from "./authPages/Login.jsx";
+import EmailLogin from "./authPages/EmailLogin.jsx";
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
         <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/login-with-email" element={<EmailLogin/>} />
         <Route path="/post/:id" element={<BlogPreview/>} />
       </Routes>
       </div>
