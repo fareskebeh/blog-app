@@ -3,7 +3,7 @@ import Comment from "./Comment";
 import axiosInit from "../services/axios-init";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
-const CommentSection = ({ theme, comments = [], id }) => {
+const CommentSection = ({ comments = [], id }) => {
   const [currCom, setCurrCom] = useState({
     author: "",
     content: "",
@@ -62,7 +62,6 @@ const CommentSection = ({ theme, comments = [], id }) => {
       <div>
         <hr
           className={`mb-6 mt-2
-              ${theme === "dark" ? "border-neutral-700" : "border-neutral-200"}
               `}
         />
         <p className="text-3xl font-bold">Comments ({comments.length})</p>
@@ -73,7 +72,6 @@ const CommentSection = ({ theme, comments = [], id }) => {
           >
             <input
               className={`
-            ${theme === "dark" ? "bg-neutral-800" : "bg-neutral-100"}
             w-50`}
               type="text"
               placeholder="Your name.."
@@ -84,7 +82,6 @@ const CommentSection = ({ theme, comments = [], id }) => {
             <textarea
               rows="1"
               className={`
-                ${theme === "dark" ? "bg-neutral-800" : "bg-neutral-100"}
                 `}
               type="text"
               placeholder="Add a comment.."
@@ -108,17 +105,12 @@ const CommentSection = ({ theme, comments = [], id }) => {
                 <Comment
                   id={comment.id}
                   author={comment.author}
-                  theme={theme}
                   date_created={comment.date_created}
                   content={comment.content}
                 />
                 {index !== comments.length - 1 && (
                   <hr
-                    className={`${
-                      theme === "dark"
-                        ? "border-neutral-800"
-                        : "border-neutral-200"
-                    }`}
+                    className={``}
                   />
                 )}
               </div>
@@ -131,7 +123,6 @@ const CommentSection = ({ theme, comments = [], id }) => {
             >
               <div
                 className={`p-8 rounded-xl text-center
-                 ${theme === "dark" ? "bg-neutral-800" : "bg-neutral-100"}
                 `}
               >
                 <p className="text-3xl font-bold">No comments here</p>

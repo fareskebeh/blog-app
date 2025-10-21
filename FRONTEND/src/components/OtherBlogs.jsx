@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Loading from "../fallback/Loading"
 import Error from "../fallback/Error"
 
-export function OtherBlogs({ theme }) {
+export function OtherBlogs() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -53,7 +53,6 @@ export function OtherBlogs({ theme }) {
     <div>
       <div
         className={`transition-all duration-300
-        ${theme === "dark" ? "bg-neutral-900" : ""}
         flex flex-col items-center pb-10`}
       >
         <p className={`ml-2 my-4 pl-1 text-2xl font-extralight`}>Other Blogs</p>
@@ -65,7 +64,6 @@ export function OtherBlogs({ theme }) {
               search(searchQ);
             }}
             className={`w-80
-            ${theme === "dark" ? "bg-neutral-700" : "bg-neutral-100"}
             rounded-4xl py-2 px-4 outline-none shadow-md`}
             placeholder="Search for a keyword/topic.."
             type="text"
@@ -85,7 +83,7 @@ export function OtherBlogs({ theme }) {
 
 
 
-      <div className={`box-border ${theme === "dark" ? "bg-neutral-900" : ""}`}>
+      <div className={`box-border`}>
         { loading ? <Loading/> :
         posts.length !== 0 ? (
           posts.map((post, index) => (
@@ -95,7 +93,6 @@ export function OtherBlogs({ theme }) {
                 title={post.title}
                 image={post.image}
                 genre={post.genre}
-                theme={theme}
                 date_created={post.date_created}
                 time_required={post.time_required}
                 likes={post.likes}

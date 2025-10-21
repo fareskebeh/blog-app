@@ -4,7 +4,7 @@ import LatestCard from "./LatestCard";
 import {Link} from "react-router-dom"
 
 
-const LatestBlogs = ({ theme , posts}) => {
+const LatestBlogs = ({ posts}) => {
    return (
     <motion.div
       initial={{
@@ -19,7 +19,7 @@ const LatestBlogs = ({ theme , posts}) => {
     >
       <div
         className={`flex justify-around gap-8 p-8
-        ${theme === "dark" ? "bg-neutral-900" : "bg-neutral-100"}`}
+        `}
       >
         {
           posts.map((post,index)=> {

@@ -1,7 +1,6 @@
 import { OtherBlogs } from "./OtherBlogs";
 import React, { useState, useContext, useEffect } from "react";
 import axiosInit from "../services/axios-init.js";
-import themeContext from "../data/themeContext.js";
 import { motion } from "framer-motion";
 import LatestBlogs from "./LatestBlogs.jsx";
 import LatestCarousel from "./LatestCarousel.jsx";
@@ -54,11 +53,9 @@ const Home = () => {
     }
   }, []);
 
-  const { theme } = useContext(themeContext);
   return (
     <div
       className={` transition-all duration-300
-    ${theme === "dark" ? " **:text-white bg-neutral-900" : ""}
     `}
     >
       <motion.div
@@ -83,12 +80,12 @@ const Home = () => {
       loading ? <Loading/> :
       posts.length!==0 ?
       view === "desktop" ?
-        <LatestBlogs theme={theme} posts={posts}/>
+        <LatestBlogs posts={posts}/>
         : 
-        <LatestCarousel theme={theme} posts={posts}/> : <Error message={404}/>
+        <LatestCarousel posts={posts}/> : <Error message={404}/>
       }
 
-      <OtherBlogs theme={theme} />
+      <OtherBlogs/>
     </div>
   );
 };

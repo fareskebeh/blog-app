@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import themeContext from "../data/themeContext";
 import { useParams } from "react-router-dom";
 import axiosInit from "../services/axios-init";
 import CommentSection from "./CommentSection";
@@ -10,7 +9,6 @@ import copy from "copy-to-clipboard";
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 const BlogPreview = () => {
-  const { theme } = useContext(themeContext);
   const { id } = useParams();
   const [post, setPost] = useState({});
   const [open, setOpen] = useState({
@@ -53,7 +51,7 @@ const BlogPreview = () => {
     return subPars.map((subPar, index) => (
       <p
         key={index}
-        className={`mb-4 text-xl ${theme === "dark" ? "text-neutral-200" : ""}`}
+        className={`mb-4 text-xl`}
       >
         {subPar.trim()}.
       </p>
@@ -63,18 +61,12 @@ const BlogPreview = () => {
   return (
     <div
       className={`p-4 transition duration-300
-        ${theme === "dark" ? "bg-neutral-900 text-white" : ""}
         `}
     >
       <header>
         <p className={`font-bold text-5xl mb-2`}>{post.title} </p>
         <div
           className={`**:text-xl flex flex-col gap-2
-                ${
-                  theme === "dark"
-                    ? "**:text-neutral-400"
-                    : "**:text-neutral-600"
-                }
                 **:italic pl-2 mb-4`}
         >
           <p>By: Fares Kebbeh &#8226; {post.time_required} min read</p>
@@ -109,7 +101,6 @@ const BlogPreview = () => {
           </div>
           <p
             className={`
-            ${theme === "dark" ? "text-neutral-700" : "text-neutral-200"}
             `}
           >
             |
@@ -126,11 +117,6 @@ const BlogPreview = () => {
             <div
               className={`transition-all duration-300 overflow-hidden
             ${open.copyLink ? "scale-y-100 opacity-100 pointer-events-auto" : "scale-y-0 opacity-0 pointer-events-none"} 
-              ${
-                theme === "dark"
-                  ? "bg-neutral-800 **:border-neutral-600"
-                  : "bg-white **:border-neutral-400"
-              } 
               shadow-md rounded-2xl text-nowrap absolute flex gap-2 -bottom-20 p-4`}
             >
               <p className={`copy border-2 p-2 rounded-xl`}>
@@ -151,7 +137,7 @@ const BlogPreview = () => {
         </div>
       </div>
 
-      <CommentSection theme={theme} id={id} comments={post.comments} />
+      <CommentSection id={id} comments={post.comments} />
     </div>
   );
 };

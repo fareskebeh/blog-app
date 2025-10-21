@@ -10,7 +10,7 @@ import {motion} from "framer-motion"
 import {Link} from "react-router-dom"
 import {useSwipeable} from "react-swipeable"
 
-const LatestCarousel = ({ theme, posts = [] }) => {
+const LatestCarousel = ({ posts = [] }) => {
   const [page, setPage] = useState(0);
  const gestures = useSwipeable({
   onSwipedRight: ()=> traverse("left"),
@@ -51,7 +51,6 @@ const LatestCarousel = ({ theme, posts = [] }) => {
           <div>
         <p
           className={`shadow-sm p-2 rounded-md inline-block
-        ${theme === "dark" ? "bg-neutral-700" : "bg-neutral-100"}
         `}
         >
           {posts[page].genre}

@@ -3,7 +3,6 @@ const API_BASE = import.meta.env.VITE_API_BASE;
 import {motion} from "framer-motion"
 
 const BlogTile = ({
-  theme,
   title,
   image,
   genre,

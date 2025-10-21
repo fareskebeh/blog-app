@@ -1,15 +1,12 @@
 import React, { useContext } from "react";
-import themeContext from "../data/themeContext";
 import Img from "../assets/img/placeholder.png";
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 
 const LatestCard = ({date_created, genre, id, image, time_required, title}) => {
-  const { theme } = useContext(themeContext);
   return (
     <div
       className={`
-    ${theme === "dark" ? "bg-neutral-800 border-b-2  border-b-neutral-700" : "bg-white"}
     flex flex-col justify-around gap-2 box-border flex-1 shadow-lg p-6 rounded-4xl  cursor-pointer transition-all duration-200 hover:-translate-y-1 active:-translate-y-2`}
     >
       
@@ -25,7 +22,6 @@ const LatestCard = ({date_created, genre, id, image, time_required, title}) => {
       <div>
         <p
           className={`shadow-sm p-2 rounded-md inline-block
-        ${theme === "dark" ? "bg-neutral-700" : "bg-neutral-100"}
         `}
         >
           {genre}
@@ -37,7 +33,6 @@ const LatestCard = ({date_created, genre, id, image, time_required, title}) => {
       </p>
       <div
         className={`
-        ${theme === "dark" ? "**:text-neutral-400" : "**:text-neutral-600"}
         flex md:text-sm sm:text-sm lg:text-lg  text-nowrap gap-2`}
       >
         <p>{date_created}</p>
