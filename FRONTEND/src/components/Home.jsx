@@ -55,7 +55,7 @@ const Home = () => {
 
   return (
     <div
-      className={` transition-all duration-300
+      className={` transition duration-150
     `}
     >
       <motion.div
@@ -63,7 +63,7 @@ const Home = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <p className={`px-4 text-4xl font-bold`}>Welcome to my blog</p>
+        <p className={`px-4 text-4xl dark:text-white font-bold`}>Welcome to my blog</p>
       </motion.div>
 
       <motion.div
@@ -71,7 +71,7 @@ const Home = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <p className={`px-6 my-4 text-2xl font-extralight`}>
+        <p className={`px-6 my-4 text-xl dark:text-neutral-400 text-neutral-700`}>
           Here are my latest posts
         </p>
       </motion.div>

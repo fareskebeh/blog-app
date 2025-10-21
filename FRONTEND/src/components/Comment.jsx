@@ -2,15 +2,15 @@ import React from "react";
 
 const Comment = ({ author, content, date_created }) => {
   return (
-    <div className={`p-4 flex flex-col gap-2`}>
+    <div className={`p-4 flex flex-col gap-4`}>
       <div className={`
         flex gap-2`}>
-        <p className={` font-bold
+        <p className={`dark:text-white font-bold 
             `}>{author}</p>
-        <p>&#8226;</p>
-        <p>{date_created}</p>
+        <p className="text-neutral-600 dark:text-neutral-500">&#8226;</p>
+        <p className="text-neutral-600 dark:text-neutral-500">{date_created}</p>
       </div>
-      <p className="text-md">{content}</p>
+      <p className="text-md dark:text-neutral-400">{content}</p>
     </div>
   );
 };

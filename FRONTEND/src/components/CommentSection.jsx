@@ -61,17 +61,17 @@ const CommentSection = ({ comments = [], id }) => {
       </div>
       <div>
         <hr
-          className={`mb-6 mt-2
+          className={`mb-6 mt-2 border-neutral-200 dark:border-neutral-900
               `}
         />
-        <p className="text-3xl font-bold">Comments ({comments.length})</p>
+        <p className="text-3xl font-bold dark:text-white">Comments ({comments.length})</p>
         <div className="">
           <div
             className={`commenter my-4 flex gap-2 **:outline-none **:shadow-md **:px-4 **:py-2 **:rounded-2xl **:resize-none
            `}
           >
             <input
-              className={`
+              className={`dark:bg-neutral-900 transition duration-150 bg-neutral-200 dark:placeholder-neutral-600 placeholder-neutral-500 caret-blue-500 dark:text-white    
             w-50`}
               type="text"
               placeholder="Your name.."
@@ -81,7 +81,7 @@ const CommentSection = ({ comments = [], id }) => {
             />
             <textarea
               rows="1"
-              className={`
+              className={`dark:bg-neutral-900 transition duration-150 bg-neutral-200 dark:placeholder-neutral-600 placeholder-neutral-500 caret-blue-500 dark:text-white    
                 `}
               type="text"
               placeholder="Add a comment.."
@@ -92,7 +92,7 @@ const CommentSection = ({ comments = [], id }) => {
             <button
               onClick={() => postComment()}
               className="py-2 px-4 bg-blue-500 rounded-4xl cursor-pointer hover:scale-102 active:scale-100 transition duration-300 text-white shadow-md "
-            >
+              >
               Add
             </button>
           </div>
@@ -110,7 +110,7 @@ const CommentSection = ({ comments = [], id }) => {
                 />
                 {index !== comments.length - 1 && (
                   <hr
-                    className={``}
+                    className={`dark:border-neutral-900 border-neutral-200`}
                   />
                 )}
               </div>
@@ -125,8 +125,8 @@ const CommentSection = ({ comments = [], id }) => {
                 className={`p-8 rounded-xl text-center
                 `}
               >
-                <p className="text-3xl font-bold">No comments here</p>
-                <p className="text-xl text-neutral-600 mt-2">
+                <p className="text-3xl font-bold dark:text-white">No comments here</p>
+                <p className="text-xl text-neutral-600 dark:text-neutral-500 mt-2">
                   Be the first to comment
                 </p>
               </div>

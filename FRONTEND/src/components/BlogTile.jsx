@@ -23,7 +23,7 @@ const BlogTile = ({
         <div className="relative z-20 space-y-2 pointer-events-none">
           <div className="flex items-center justify-between">
           <p className="text-white font-bold text-xl">{title}</p>
-          <p className="p-2 bg-neutral-500 rounded-xl text-white">{genre}</p>
+          <p className="p-2 backdrop-blur-xs brightness-180 rounded-xl text-white">{genre}</p>
           </div>
 
           <div className=" text-neutral-400 flex gap-2 text-sm">

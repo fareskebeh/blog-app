@@ -7,6 +7,7 @@ import { FaHeart, FaCheck, FaTimes } from "react-icons/fa";
 import { AiOutlineLink } from "react-icons/ai";
 import copy from "copy-to-clipboard";
 const API_BASE = import.meta.env.VITE_API_BASE;
+import {AnimatePresence, motion} from "framer-motion"
 
 const BlogPreview = () => {
   const { id } = useParams();
@@ -64,9 +65,9 @@ const BlogPreview = () => {
         `}
     >
       <header>
-        <p className={`font-bold text-5xl mb-2`}>{post.title} </p>
+        <p className={`font-bold text-5xl mb-2 transition duration-150 dark:text-white`}>{post.title} </p>
         <div
-          className={`**:text-xl flex flex-col gap-2
+          className={`**:text-xl flex dark:text-neutral-500 text-neutral-700 flex-col gap-2
                 **:italic pl-2 mb-4`}
         >
           <p>By: Fares Kebbeh &#8226; {post.time_required} min read</p>
@@ -83,7 +84,7 @@ const BlogPreview = () => {
       </div>
 
       <div>
-        {formatBody(post.body)}
+        <p className="dark:text-white transition duration-150">{formatBody(post.body)}</p>
         <div className="flex items-center gap-2 p-2">
           <div className="flex items-center gap-2">
             <button
@@ -94,16 +95,15 @@ const BlogPreview = () => {
                 className={`transition duration-300 hover:scale-105 active:scale-110 ${
                   liked ? "fill-rose-700" : ""
                 }`}
-                size={20}
+                size={28}
               />
             </button>
-            <p>{post.likes}</p>
+            <p className="text-neutral-500 text-xl">{post.likes}</p>
           </div>
           <p
             className={`
             `}
           >
-            |
           </p>
           <div className="relative flex items-center">
             <button
@@ -111,15 +111,20 @@ const BlogPreview = () => {
               onClick={()=>setOpen({...open, copyLink: !open.copyLink})}
               className="hover:scale-107 active:scale-100 transition duration-300 cursor-pointer text-neutral-400"
             >
-              {open.copyLink ? <FaTimes size={21} /> : <MdShare size={21} />}
+              {open.copyLink ? <FaTimes size={28} /> : <MdShare size={28} />}
             </button>
 
-            <div
-              className={`transition-all duration-300 overflow-hidden
-            ${open.copyLink ? "scale-y-100 opacity-100 pointer-events-auto" : "scale-y-0 opacity-0 pointer-events-none"} 
+            <AnimatePresence>
+            { open.copyLink &&
+              <motion.div
+              initial={{opacity:0, y:-20}}
+              animate={{opacity:1, y:0}}
+              exit={{opacity:0, y:-20}}
+              transition={{duration:0.2}}
+              className={`transition-colors dark:bg-neutral-900 bg-white duration-150 overflow-hidden
               shadow-md rounded-2xl text-nowrap absolute flex gap-2 -bottom-20 p-4`}
             >
-              <p className={`copy border-2 p-2 rounded-xl`}>
+              <p className={`copy dark:text-neutral-500 border-2 p-2 rounded-xl border-neutral-300 dark:border-neutral-800`}>
                 {window.location.href}
               </p>
               <button
@@ -132,7 +137,8 @@ const BlogPreview = () => {
               >
                 {open.copiedMessage ? <FaCheck size={23}/> : <AiOutlineLink size={23}/>}
               </button>
-            </div>
+            </motion.div>}
+            </AnimatePresence>
           </div>
         </div>
       </div>

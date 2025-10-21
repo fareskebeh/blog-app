@@ -41,7 +41,7 @@ const LatestCarousel = ({ posts = [] }) => {
 
 
         <motion.div {...gestures} key={page} initial={{opacity:0}} whileInView={{opacity:1}} animate={{opacity:1}} transition={{duration:0.8}}>
-        <div className={ `transition-all duration-300 shadow-lg relative h-90 m-4 rounded-3xl overflow-hidden`}>
+        <div className={ `transition-all duration-150 shadow-lg relative h-90 m-4 rounded-3xl overflow-hidden`}>
 
             <img className="flex-1 w-full h-full object-cover" src={API_BASE + posts[page].image} alt="" />
           
@@ -75,14 +75,14 @@ const LatestCarousel = ({ posts = [] }) => {
 
       <div className="flex items-center justify-around gap-2">
         
-        <button onClick={() => traverse("left")} className={`**:fill-black ${page===0 && "opacity-0  pointer-events-none"} transition-all duration-300 hover:-translate-x-1 active:-translate-x-2 cursor-pointer bg-neutral-200 p-2 rounded-full`}>
+        <button onClick={() => traverse("left")} className={`**:fill-black dark:bg-neutral-800 dark:**:fill-neutral-500 ${page===0 && "opacity-0  pointer-events-none"} transition-all duration-300 hover:-translate-x-1 active:-translate-x-2 cursor-pointer bg-neutral-200 p-2 rounded-full`}>
           <FaArrowLeft />
         </button>
 
         <div className="flex gap-3">
-          {page===0 ?  <FaCircle size={8}/> : <FaRegCircle size={8}/>}
-          {page===1 ?  <FaCircle size={8}/> : <FaRegCircle size={8}/>}
-          {page===2 ?  <FaCircle size={8}/> : <FaRegCircle size={8}/>}
+          {page===0 ?  <FaCircle className="text-blue-500" size={8}/> : <FaCircle className="text-neutral-300 dark:text-neutral-800" size={8}/>}
+          {page===1 ?  <FaCircle className="text-blue-500" size={8}/> : <FaCircle className="text-neutral-300 dark:text-neutral-800" size={8}/>}
+          {page===2 ?  <FaCircle className="text-blue-500" size={8}/> : <FaCircle className="text-neutral-300 dark:text-neutral-800" size={8}/>}
         </div>
         <button
           onClick={() => traverse("right")}
@@ -90,7 +90,7 @@ const LatestCarousel = ({ posts = [] }) => {
             ${
               page>=posts.length-1 && "opacity-0 pointer-events-none"
             }
-            transition-all duration-300 hover:translate-x-1 active:translate-x-2 cursor-pointer bg-neutral-200 p-2 **:fill-black rounded-full`}
+            transition-all duration-150 hover:translate-x-1 active:translate-x-2 cursor-pointer bg-neutral-200 p-2 dark:bg-neutral-800 dark:**:fill-neutral-500 **:fill-black rounded-full`}
         >
           <FaArrowRight />
         </button>
