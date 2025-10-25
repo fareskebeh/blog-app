@@ -6,6 +6,11 @@
     src: url(./assets/fonts/Inter-VariableFont_opszwght.ttf);
 }
 
+@theme {
+    --text-jetbrains {
+         font-family: "Monospace Regular";}
+}
+
 * {
     font-family:"Inter"
 }

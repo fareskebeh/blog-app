@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosInit from "../services/axios-init";
 import CommentSection from "./CommentSection";
@@ -8,6 +8,7 @@ import { AiOutlineLink } from "react-icons/ai";
 import copy from "copy-to-clipboard";
 const API_BASE = import.meta.env.VITE_API_BASE;
 import {AnimatePresence, motion} from "framer-motion"
+import Markdown from "react-markdown"
 
 const BlogPreview = () => {
   const { id } = useParams();
@@ -45,20 +46,6 @@ const BlogPreview = () => {
     }, 2000);
   }, [open.copiedMessage]);
 
-  const formatBody = (paragraph = "") => {
-    const subPars = paragraph
-      .split(".")
-      .filter((subPar) => subPar.trim() !== "");
-    return subPars.map((subPar, index) => (
-      <p
-        key={index}
-        className={`mb-4 text-xl`}
-      >
-        {subPar.trim()}.
-      </p>
-    ));
-  };
-
   return (
     <div
       className={`p-4 transition duration-300
@@ -77,14 +64,18 @@ const BlogPreview = () => {
 
       <div className="relative mb-8">
         <img
-          className="w-[100%] h-80 object-cover overflow-hidden rounded-4xl"
+          className="w-full h-80 object-cover overflow-hidden rounded-4xl"
           src={API_BASE + post.image}
           alt=""
         />
       </div>
 
       <div>
-        <p className="dark:text-white transition duration-150">{formatBody(post.body)}</p>
+        <div className="py-4 text-lg prose dark:prose-invert">
+        <Markdown>
+          {post.body}
+        </Markdown>
+        </div>
         <div className="flex items-center gap-2 p-2">
           <div className="flex items-center gap-2">
             <button
