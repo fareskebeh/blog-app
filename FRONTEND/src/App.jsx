@@ -5,6 +5,7 @@ import Nav from "./components/navigation/Nav.jsx";
 import { AuthProvider } from "./hooks/useAuth.jsx";
 import Login from "./authPages/Login.jsx";
 import EmailLogin from "./authPages/EmailLogin.jsx";
+import Register from "./authPages/Register.jsx";
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/login-with-email" element={<EmailLogin/>} />
+        <Route path="/register" element={<Register/>} />
         <Route path="/post/:id" element={<BlogPreview/>} />
       </Routes>
       </div>
