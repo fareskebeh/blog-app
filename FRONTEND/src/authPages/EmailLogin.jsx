@@ -1,8 +1,9 @@
 import { HiOutlineUser, HiOutlineAtSymbol, HiOutlineLockClosed } from "react-icons/hi"
+import Toggle from "../utils/Toggle"
 
 const EmailLogin = () => {
   return (
-    <div className='pt-20 h-[100dvh] flex items-center justify-center dark:bg-neutral-950 bg-neutral-100 transition **:transition duration-150'>
+    <div className='pt-20 h-dvh flex items-center justify-center dark:bg-neutral-950 bg-neutral-100 transition **:transition duration-150'>
       
       <div className='flex flex-col gap-12'>
         <p className='text-3xl dark:text-white font-black'>Use your E-mail to log in</p>
@@ -19,9 +20,9 @@ const EmailLogin = () => {
             <input className='dark:bg-neutral-900 w-full pl-9 bg-neutral-200 rounded-xl p-2 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none' placeholder='Password' type="password" />
           </div>
           
-          <div className="flex gap-2 my-2">
-            <span className="text-neutral-700 dark:text-neutral-500">Remember me</span> 
-            <input type="checkbox"/>
+          <div className="flex gap-2 my-2 items-center">
+            <span className="text-neutral-700 text-nowrap dark:text-neutral-500">Remember me</span> 
+            <Toggle />
           </div>
           <button className='p-2  dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer hover:opacity-90'>Log In</button>
         </div>
