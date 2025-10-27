@@ -8,7 +8,7 @@ class CommentSerializer(serializers.ModelSerializer):
         model = models.Comment
         fields = "__all__"
     def get_date_created(self,obj):
-        return f"{timesince(obj.date_created).split(",")[0]} ago"
+        return f"{timesince(obj.date_created).split(',')[0]} ago"
 
 class SinglePostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only = True)
