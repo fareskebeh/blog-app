@@ -1,6 +1,7 @@
 import { HiOutlineUser, HiOutlineAtSymbol, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
 import Toggle from "../utils/Toggle"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 const EmailLogin = () => {
   const [pwVis, setPwVis] = useState(false)
@@ -32,7 +33,7 @@ const EmailLogin = () => {
           <button className='p-2  dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer hover:opacity-90'>Log In</button>
         </div>
 
-        <p className="flex gap-2 items-center justify-center dark:text-neutral-500"><HiOutlineUser/>New User? Register instead</p>
+        <Link to="/register" className="flex gap-2 items-center justify-center dark:text-neutral-500"><HiOutlineUser/>New User? Register instead</Link>
       </div>
     </div>
   )
