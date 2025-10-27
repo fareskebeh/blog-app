@@ -71,13 +71,13 @@ const BlogPreview = () => {
       </div>
 
       <div>
-        <div className="py-4 text-lg prose dark:prose-invert">
+        <div className="py-4 text-lg prose dark:[&>hr]:border-neutral-900 *:transition duration-150 dark:prose-invert">
         <Markdown>
           {post.body}
         </Markdown>
         </div>
-        <div className="flex items-center gap-2 p-2">
-          <div className="flex items-center gap-2">
+        <div className="flex mb-4 items-center gap-2 p-2">
+          <div className="flex  items-center gap-2">
             <button
               onClick={() => setLiked(!liked)}
               className="**:fill-neutral-400 cursor-pointer "

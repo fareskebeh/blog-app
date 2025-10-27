@@ -44,7 +44,7 @@ const CommentSection = ({ comments = [], id }) => {
   return (
     <>
       <div
-        className={`fixed flex gap-2 items-center p-2 rounded-2xl z-90 transition-all duration-300 pointer-events-none text-white 
+        className={`fixed  flex gap-2 items-center p-2 rounded-2xl z-90 transition-all duration-300 pointer-events-none text-white 
           ${message.shown ? "bottom-4" : "-bottom-20"} 
           ${message.state === "success" ? "bg-green-600" : "bg-red-500"}
           `}
@@ -60,11 +60,8 @@ const CommentSection = ({ comments = [], id }) => {
         )}
       </div>
       <div>
-        <hr
-          className={`mb-6 mt-2 border-neutral-200 dark:border-neutral-900
-              `}
-        />
-        <p className="text-3xl font-bold dark:text-white">Comments ({comments.length})</p>
+        
+        <p className="text-3xl font-bold dark:text-white transition duration-150">Comments ({comments.length})</p>
         <div className="">
           <div
             className={`commenter my-4 flex gap-2 **:outline-none **:shadow-md **:px-4 **:py-2 **:rounded-2xl **:resize-none
@@ -122,10 +119,10 @@ const CommentSection = ({ comments = [], id }) => {
             p-8 flex justify-center`}
             >
               <div
-                className={`p-8 rounded-xl text-center
+                className={`p-8 rounded-xl text-center *:transition duration-150
                 `}
               >
-                <p className="text-3xl font-bold dark:text-white">No comments here</p>
+                <p className="text-3xl font-bold dark:text-white ">No comments here</p>
                 <p className="text-xl text-neutral-600 dark:text-neutral-500 mt-2">
                   Be the first to comment
                 </p>
