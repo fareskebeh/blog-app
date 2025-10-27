@@ -1,7 +1,9 @@
-import { HiOutlineUser, HiOutlineAtSymbol, HiOutlineLockClosed } from "react-icons/hi"
+import { HiOutlineUser, HiOutlineAtSymbol, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
 import Toggle from "../utils/Toggle"
+import { useState } from "react"
 
 const EmailLogin = () => {
+  const [pwVis, setPwVis] = useState(false)
   return (
     <div className='pt-20 h-dvh flex items-center justify-center dark:bg-neutral-950 bg-neutral-100 transition **:transition duration-150'>
       
@@ -17,7 +19,10 @@ const EmailLogin = () => {
           
           <div className="relative">
             <HiOutlineLockClosed size={20} className="text-neutral-500 dark:text-neutral-600 absolute top-2.5 left-2"/>
-            <input className='dark:bg-neutral-900 w-full pl-9 bg-neutral-200 rounded-xl p-2 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none' placeholder='Password' type="password" />
+            <input className='dark:bg-neutral-900 w-full pl-9 bg-neutral-200 rounded-xl p-2 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none' placeholder='Password' type={pwVis ? "text" : "password"} />
+            <button onClick={()=> setPwVis(!pwVis) } className={`${pwVis ? "text-neutral-700 dark:text-neutral-500" : "dark:text-neutral-600 text-neutral-500"} transition  duration-150 absolute cursor-pointer top-2.5 right-3`}>
+              {pwVis ? <HiOutlineEye size={20}/> : <HiOutlineEyeOff size={20}/>}
+            </button>
           </div>
           
           <div className="flex gap-2 my-2 items-center">
