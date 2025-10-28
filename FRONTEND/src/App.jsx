@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="bg-neutral-100 pt-20 dark:bg-neutral-950 transition duration-150">
+      <div className="bg-neutral-100 dark:bg-neutral-950 transition duration-150">
         <Nav/>
         <Routes>
         <Route path="/" element={<Home/>} />

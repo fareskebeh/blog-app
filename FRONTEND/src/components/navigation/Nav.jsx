@@ -15,9 +15,11 @@ const Nav = () => {
         {
           user ? <></> : pathname==="/login" || pathname==="/register" ||pathname=== "/login-with-email"? <></> : <Link to={"/login"} className='p-2 transition duration-150 hover:opacity-95 bg-black text-sm text-white dark:text-black dark:bg-white rounded-xl cursor-pointer'>Log In</Link>
         }
-          <button className='cursor-pointer' onClick={changeTheme}>{
+          <button className='cursor-pointer' onClick={changeTheme}>
+          {
             theme ==="dark" ? <HiOutlineMoon size={28} color='#707070'/> : <HiOutlineSun size={28}/>
-          }</button>
+          }
+          </button>
       </div>
     </div>
   )
