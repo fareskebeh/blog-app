@@ -14,6 +14,9 @@ FRONTEND/dist/
 FRONTEND/dist-ssr/
 FRONTEND/*.local
 
+# Testing
+FRONTEND/*.http
+
 # Editor configs
 FRONTEND/.vscode/*
 !FRONTEND/.vscode/extensions.json
