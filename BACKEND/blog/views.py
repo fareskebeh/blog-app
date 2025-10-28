@@ -2,6 +2,8 @@ from rest_framework.response import Response
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from dj_rest_auth.registration.views import RegisterView
+from .serializers import RegistrationSerializer
 
 class Confirmation(APIView):
     permission_classes=[AllowAny]
@@ -12,3 +14,5 @@ class Confirmation(APIView):
         conf.confirm(request)
         return Response({"detail":"Email confirmed!"}, status=200)
         
+class RegistrationView(RegisterView):
+    serializer_class = RegistrationSerializer
