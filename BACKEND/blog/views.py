@@ -14,5 +14,3 @@ class Confirmation(APIView):
         conf.confirm(request)
         return Response({"detail":"Email confirmed!"}, status=200)
         
-class RegistrationView(RegisterView):
-    serializer_class = RegistrationSerializer
