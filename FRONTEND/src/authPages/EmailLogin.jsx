@@ -1,11 +1,12 @@
 import { HiOutlineUser, HiOutlineAtSymbol, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
 import Toggle from "../reusables/Toggle"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axiosInit from "../services/axios-init"
 import { errorParse } from "../utils/errorParse"
 
 const EmailLogin = () => {
+  const navigate = useNavigate()
   const[credentials,setCredentials] = useState({
     username: "",
     email:"",
@@ -53,6 +54,9 @@ const EmailLogin = () => {
     })
     .then(res=> {
       console.log(res)
+      if(res.status===200) {
+        navigate("/")
+      }
     })
     .catch(err=>{
       console.log(err)

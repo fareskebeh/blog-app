@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from "./hooks/useAuth.jsx";
 import Login from "./authPages/Login.jsx";
 import EmailLogin from "./authPages/EmailLogin.jsx";
 import Register from "./authPages/Register.jsx";
+import Verify from "./authPages/Verify.jsx";
 
 const App = () => {
   const {user} = useAuth()
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/login" element={user ? <Home/> : <Login/>} />
         <Route path="/login-with-email" element={user ? <Home/> : <EmailLogin/>} />
         <Route path="/register" element={user? <Home/> : <Register/>} />
+        <Route path="/verify" element={user? <Home/> : <Verify/>}/>
         
         <Route path="/post/:id" element={<BlogPreview/>} />
       </Routes>
