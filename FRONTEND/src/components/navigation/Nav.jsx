@@ -1,5 +1,5 @@
 import React from 'react'
-import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
+import { HiOutlineSun, HiOutlineMoon, HiOutlineUser } from "react-icons/hi";
 import { useTheme } from '../../hooks/useTheme';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useLocation } from 'react-router-dom';
@@ -13,7 +13,11 @@ const Nav = () => {
       <div/>
       <div className='flex items-center gap-4'>
         {
-          user ? <></> : pathname==="/login" || pathname==="/register" ||pathname=== "/login-with-email"? <></> : <Link to={"/login"} className='p-2 transition duration-150 hover:opacity-95 bg-black text-sm text-white dark:text-black dark:bg-white rounded-xl cursor-pointer'>Log In</Link>
+          user ? 
+          <Link to="/me" className='flex gap-2 dark:text-[#707070] text-neutral-500 rounded-3xl p-2 dark:bg-neutral-800 bg-white transition *:transition duration-150 '>
+            <HiOutlineUser size={24}/>
+          </Link>
+          : pathname==="/login" || pathname==="/register" ||pathname=== "/login-with-email"? <></> : <Link to={"/login"} className='p-2 transition duration-150 hover:opacity-95 bg-black text-sm text-white dark:text-black dark:bg-white rounded-xl cursor-pointer'>Log In</Link>
         }
           <button className='cursor-pointer' onClick={changeTheme}>
           {

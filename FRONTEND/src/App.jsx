@@ -7,6 +7,7 @@ import Login from "./authPages/Login.jsx";
 import EmailLogin from "./authPages/EmailLogin.jsx";
 import Register from "./authPages/Register.jsx";
 import Verify from "./authPages/Verify.jsx";
+import Me from "./components/user/Me.jsx";
 
 const App = () => {
   const {user} = useAuth()
@@ -14,7 +15,7 @@ const App = () => {
   return (
     <Router>
       <div className="bg-neutral-100 dark:bg-neutral-950 transition duration-150">
-        <Nav />
+        <Nav user={user}/>
         <Routes>
         <Route path="/" element={<Home/>} />
 
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/login-with-email" element={user ? <Home/> : <EmailLogin/>} />
         <Route path="/register" element={user? <Home/> : <Register/>} />
         <Route path="/verify" element={user? <Home/> : <Verify/>}/>
+        <Route path="/me" element={user? <Me user={user}/> : <Home/>}/>
         
         <Route path="/post/:id" element={<BlogPreview/>} />
       </Routes>
