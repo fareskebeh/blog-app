@@ -3,6 +3,7 @@ import Toggle from "../reusables/Toggle"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import axiosInit from "../services/axios-init"
+import { errorParse } from "../utils/errorParse"
 
 const Register = () => {
   const [pwVis, setPwVis] = useState(false)
@@ -20,6 +21,10 @@ const Register = () => {
 
   const submitForm = (e)=> {
     e.preventDefault()
+    setResponse({
+      status: "loading",
+      message: null
+    })
 
     if(!credentials.email||!credentials.password1||!credentials.password2||!credentials.username) {
       setResponse({
@@ -51,10 +56,6 @@ const Register = () => {
     }
 
     console.log(credentials)
-    setResponse({
-      status: undefined,
-      message: ""
-    })
     axiosInit.post(`${import.meta.env.VITE_API_BASE}auth/registration/`, credentials, {
       headers: {
         "Content-Type": "application/json"
@@ -67,7 +68,7 @@ const Register = () => {
       console.log(err)
       setResponse({
         status: "error",
-        message: "Internal Server Error"
+        message: errorParse(err)
       })
     })
 
@@ -108,7 +109,7 @@ const Register = () => {
             <span className="text-neutral-700 text-nowrap dark:text-neutral-500">Remember me</span> 
             <Toggle />
           </div>
-          <button onClick={submitForm} className='p-2  dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer hover:opacity-90'>Register</button>
+          <button onClick={submitForm} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Register" }</button>
           <p className={`h-4 ${response.status==="error" ? "text-red-500" : "text-green-600"} ${response.message ? "opacity-100" : "opacity-0"} transition duration-150`}>{response.message}</p>
         </div>
 
