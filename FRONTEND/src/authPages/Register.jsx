@@ -1,5 +1,5 @@
 import { HiOutlineUser, HiOutlineAtSymbol, HiOutlineBookOpen, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
-import Toggle from "../utils/Toggle"
+import Toggle from "../reusables/Toggle"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import axiosInit from "../services/axios-init"

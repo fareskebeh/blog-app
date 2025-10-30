@@ -1,8 +1,9 @@
 import { HiOutlineUser, HiOutlineAtSymbol, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
-import Toggle from "../utils/Toggle"
+import Toggle from "../reusables/Toggle"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import axiosInit from "../services/axios-init"
+import { errorParse } from "../utils/errorParse"
 
 const EmailLogin = () => {
   const[credentials,setCredentials] = useState({
@@ -57,7 +58,7 @@ const EmailLogin = () => {
       console.log(err)
       setResponse({
         status: "error",
-        message: "Internal Server Error"
+        message: errorParse(err)
       })
     })
 
