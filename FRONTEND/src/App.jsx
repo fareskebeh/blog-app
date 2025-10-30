@@ -14,7 +14,7 @@ const App = () => {
   return (
     <Router>
       <div className="bg-neutral-100 dark:bg-neutral-950 transition duration-150">
-        <Nav/>
+        <Nav />
         <Routes>
         <Route path="/" element={<Home/>} />
 
