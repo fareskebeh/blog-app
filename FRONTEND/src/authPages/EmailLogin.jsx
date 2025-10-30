@@ -19,6 +19,11 @@ const EmailLogin = () => {
   const submitForm = (e)=> {
     e.preventDefault()
 
+    setResponse({
+      status: "loading",
+      message:""
+    })
+
     if(!credentials.email||!credentials.password) {
       setResponse({
         status: "error",
@@ -89,11 +94,11 @@ const EmailLogin = () => {
             <span className="text-neutral-700 text-nowrap dark:text-neutral-500">Remember me</span> 
             <Toggle />
           </div>
-          <button onClick={submitForm} className='p-2  dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer hover:opacity-90'>Log In</button>
+          <button onClick={submitForm} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Log In" }</button>
           <p className={`h-4 ${response.status==="error" ? "text-red-500" : "text-green-600"} ${response.message ? "opacity-100" : "opacity-0"} transition duration-150`}>{response.message}</p>
         </div>
 
-        <Link to="/register" className="flex gap-2 items-center justify-center dark:text-neutral-500"><HiOutlineUser/>New User? Register instead</Link>
+        <Link to="/register" className="flex gap-2 items-center justify-center dark:text-neutral-500 text-neutral-700"><HiOutlineUser/>New User? Register instead</Link>
       </div>
     </div>
   )
