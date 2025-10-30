@@ -3,15 +3,15 @@ import Toggle from "../reusables/Toggle"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axiosInit from "../services/axios-init"
-import { errorParse } from "../utils/errorParse"
 
 const EmailLogin = () => {
   const navigate = useNavigate()
   const[credentials,setCredentials] = useState({
     username: "",
     email:"",
-    password:""
+    password:"",
   })
+  const[save,setSave]=useState(false)
   const[response,setResponse] = useState({
     status: undefined,
     message: "",
@@ -53,16 +53,25 @@ const EmailLogin = () => {
       }
     })
     .then(res=> {
-      console.log(res)
-      if(res.status===200) {
-        navigate("/")
+      
+      if(res) {
+        if(save) {
+         // persist token 
+        }
+        else {
+          console.log(res.data.access)
+          localStorage.setItem("token", res.data.access)
+        }
+
+        if(res.status===200) {
+          navigate("/")
+        }
       }
     })
     .catch(err=>{
       console.log(err)
       setResponse({
         status: "error",
-        message: errorParse(err)
       })
     })
 
@@ -87,9 +96,9 @@ const EmailLogin = () => {
             <input onChange={(e)=> setCredentials({...credentials, email: e.target.value})} value={credentials.email} className='dark:bg-neutral-900 w-full pl-9 bg-neutral-200 rounded-xl p-2 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none' placeholder='E-mail' type="text" />
           </div>
           
-          <div onChange={(e)=> setCredentials({...credentials, password: e.target.value})} value={credentials.password} className="relative">
+          <div className="relative">
             <HiOutlineLockClosed size={20} className="text-neutral-500 dark:text-neutral-600 absolute top-2.5 left-2"/>
-            <input className='dark:bg-neutral-900 w-full pl-9 bg-neutral-200 rounded-xl p-2 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none' placeholder='Password' type={pwVis ? "text" : "password"} />
+            <input onChange={(e)=> setCredentials({...credentials, password: e.target.value})} value={credentials.password} className='dark:bg-neutral-900 w-full pl-9 bg-neutral-200 rounded-xl p-2 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none' placeholder='Password' type={pwVis ? "text" : "password"} />
             <button onClick={()=> setPwVis(!pwVis) } className={`${pwVis ? "text-neutral-700 dark:text-neutral-500" : "dark:text-neutral-600 text-neutral-500"} transition  duration-150 absolute cursor-pointer top-2.5 right-3`}>
               {pwVis ? <HiOutlineEye size={20}/> : <HiOutlineEyeOff size={20}/>}
             </button>
@@ -97,7 +106,7 @@ const EmailLogin = () => {
           
           <div className="flex gap-2 my-2 items-center">
             <span className="text-neutral-700 text-nowrap dark:text-neutral-500">Remember me</span> 
-            <Toggle />
+            <Toggle checked={save} onChange={setSave}/>
           </div>
           <button onClick={submitForm} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Log In" }</button>
           <p className={`h-4 ${response.status==="error" ? "text-red-500" : "text-green-600"} ${response.message ? "opacity-100" : "opacity-0"} transition duration-150`}>{response.message}</p>
