@@ -12,5 +12,6 @@ urlpatterns = [
     path('auth/registration/account-confirm-email/<str:key>/', Confirmation.as_view()),
     path('auth/password/reset/confirm/<str:uidb64>/<str:token>/', PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
     path('auth/registration/', include("dj_rest_auth.registration.urls")),
-    path("", include("api.urls"))
+    path("", include("api.urls")),
+    path('profile/', include("profiles.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
