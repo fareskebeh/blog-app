@@ -63,7 +63,7 @@ export function OtherBlogs() {
               setSearchQ(e.target.value);
               search(searchQ);
             }}
-            className={`w-80 dark:text-white dark:bg-neutral-900 caret-blue-500 dark:placeholder-neutral-700 bg-neutral-200 placeholder-neutral-400
+            className={`flex-[0.7] dark:text-white dark:bg-neutral-900 caret-blue-500 dark:placeholder-neutral-700 bg-neutral-200 placeholder-neutral-400
             rounded-4xl py-2 px-4 outline-none shadow-md`}
             placeholder="Search for a keyword/topic.."
             type="text"
