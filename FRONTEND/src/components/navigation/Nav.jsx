@@ -1,5 +1,5 @@
 import React from 'react'
-import { HiOutlineSun, HiOutlineMoon, HiOutlineUser } from "react-icons/hi";
+import { HiOutlineSun, HiOutlineMoon, HiOutlineUser, HiOutlineHome } from "react-icons/hi";
 import {IoSettingsOutline} from "react-icons/io5"
 import { useTheme } from '../../hooks/useTheme';
 import { useAuth } from '../../hooks/useAuth';
@@ -13,9 +13,11 @@ const Nav = () => {
     <div className='fixed z-999 inset-x-0 top-0 p-6 mb-8 flex justify-between items-center bg-neutral-100 dark:bg-neutral-950 transition duration-150'>
       <div/>
       <div className='flex items-center gap-4'>
+        <Link to="/" className={`${pathname!=="/" ? "" : "hidden"} text-neutral-500 dark:text-[#707070]`}><HiOutlineHome size={24}/></Link>
+        
         {
           user ? 
-          <Link to={pathname!=="/me" ? "/me" : "/settings"} className='flex gap-2 dark:text-[#707070] text-neutral-500 rounded-3xl p-2 dark:bg-neutral-800 bg-white transition *:transition duration-150 '>
+          <Link to={pathname!=="/me" ? "/me" : "/settings"} className='flex gap-2 dark:text-[#707070] text-neutral-500 p-2 transition *:transition duration-150 '>
             { pathname!=="/me" ? <HiOutlineUser size={24}/> : <IoSettingsOutline size={24}/>}
           </Link>
           : 
@@ -23,7 +25,7 @@ const Nav = () => {
         }
           <button className='cursor-pointer' onClick={changeTheme}>
           {
-            theme ==="dark" ? <HiOutlineMoon size={28} color='#707070'/> : <HiOutlineSun size={28}/>
+            theme ==="dark" ? <HiOutlineMoon size={24} color='#707070'/> : <HiOutlineSun size={24}/>
           }
           </button>
       </div>
