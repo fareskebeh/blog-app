@@ -3,5 +3,6 @@ from . import views
 urlpatterns = [
     path("update-avatar/", views.update_avatar),
     path("info/<str:pk>", views.profile_info),
+    path("me/", views.me),
     path("preferences/", views.get_preferences)
 ]

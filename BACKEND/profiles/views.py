@@ -22,13 +22,22 @@ def update_avatar(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def me(request):
+    profile = request.user.user_profile
+    prof_ser = ProfileInfo(profile, many=False)
+    
+    return Response(prof_ser.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
 @permission_classes([AllowAny])
 def profile_info(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
     prof_ser = ProfileInfo(profile, many=False)
     
     return Response(prof_ser.data, status=status.HTTP_200_OK)
-    
+
 
 
 @api_view(["GET"])
