@@ -82,6 +82,21 @@ def save_post(request):
         return Response({"error": "Internal Server Error"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     return Response({"data":"Post Saved"}, status=status.HTTP_200_OK)
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_saved(request):
+    try: 
+        # posts= Post.objects.filter(savedpost__profile=request.user.user_profile)
+        saved_posts=SavedPost.objects.filter(profile=request.user.user_profile)
+        posts=[p.post for p in saved_posts]
+        print(posts)
+        posts_ser = BulkPostSerializer(posts, many=True)
+        if posts:
+            return Response({"data": posts_ser.data}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    
 
 @api_view(["GET"])
 @permission_classes([AllowAny])
