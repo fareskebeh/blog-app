@@ -7,5 +7,6 @@ urlpatterns = [
     path("post/<str:pk>/comment", views.comment),
     path("latest", views.latest),
     path("search", views.search),
-    path("save", views.save_post)
+    path("save", views.save_post),
+    path("saved",views.get_saved)
 ]   
