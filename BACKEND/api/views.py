@@ -1,10 +1,13 @@
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from .models import Post, Comment
+from .models import Post, Comment, SavedPost
 from django.db.models import Q
 from django.db import DatabaseError
 from .serializers import SinglePostSerializer, BulkPostSerializer, CommentSerializer
+from django.shortcuts import get_object_or_404
+from django.http import Http404
+from rest_framework import status
 
 
 @api_view(["GET"])
@@ -63,8 +66,22 @@ def latest(request):
 
 
 @api_view(["POST"])
-def like(request):
-    pass
+@permission_classes([IsAuthenticated])
+def save_post(request):
+    post_id=request.data.get("id")
+    if not post_id:
+        return Response({'error':"Missing post ID"}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        post = get_object_or_404(Post, pk=post_id)
+    except Http404:
+        return Response({"error":"Post not found"}, status=status.HTTP_404_NOT_FOUND)
+    profile = request.user.user_profile
+    try:
+        SavedPost.objects.create(post=post, profile=profile)
+    except Exception as e:
+        return Response({"error": "Internal Server Error"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response({"data":"Post Saved"}, status=status.HTTP_200_OK)
+
 
 @api_view(["GET"])
 @permission_classes([AllowAny])
