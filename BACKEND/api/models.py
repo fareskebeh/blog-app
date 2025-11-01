@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from profiles.models import Profile
 
 class Post(models.Model):
     id=models.UUIDField(
@@ -16,6 +17,11 @@ class Post(models.Model):
     likes = models.IntegerField()
     def __str__(self):
         return self.title
+    
+class SavedPost(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    post= models.ForeignKey(Post, on_delete=models.CASCADE)
+    save_date=models.DateTimeField(auto_now_add=True)
 
 class Comment(models.Model):
     id=models.UUIDField(
