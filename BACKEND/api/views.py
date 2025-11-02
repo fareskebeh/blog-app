@@ -89,10 +89,11 @@ def get_saved(request):
         # posts= Post.objects.filter(savedpost__profile=request.user.user_profile)
         saved_posts=SavedPost.objects.filter(profile=request.user.user_profile)
         posts=[p.post for p in saved_posts]
-        print(posts)
-        posts_ser = BulkPostSerializer(posts, many=True)
         if posts:
-            return Response({"data": posts_ser.data}, status=status.HTTP_404_NOT_FOUND)
+            posts_ser = BulkPostSerializer(posts, many=True)
+            return Response({"data": posts_ser.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({"data": [], "message": "No saved posts found."}, status=status.HTTP_204_NO_CONTENT)
     except Exception as e:
         return Response({"error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
