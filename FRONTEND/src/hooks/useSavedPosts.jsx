@@ -19,9 +19,7 @@ export const useSavedPosts = () => {
   }
 
   useEffect(() => {
-    const saved = localStorage.getItem("saved");
-
-    if (!saved) {
+    if(token) {
       axiosInit.get("saved", {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -35,7 +33,7 @@ export const useSavedPosts = () => {
             .catch((err) => {
                 console.error(err)
             });
-        }
+          }
     }, []);
 
   return posts ? posts : [];
