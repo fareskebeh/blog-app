@@ -41,10 +41,6 @@ const SavedBlogs = () => {
     getPosts()
   },[])
 
-  useEffect(()=> {
-    console.log(posts)
-  },[posts])
-
   return (
     <div className='**:transition duration-150 py-4 flex flex-col gap-4'>
       <div className='space-y-2'>
@@ -52,7 +48,7 @@ const SavedBlogs = () => {
         <p className='dark:text-neutral-700 text-neutral-700 text-base sm:text-xl'>Below is a list of blogs you have saved</p>
       </div>
 
-      <div className='rounded-xl bg-neutral-200 dark:bg-neutral-900 flex-1'>
+      <div className='rounded-2xl shadow-md border border-neutral-300 dark:border-neutral-800 overflow-y-scroll bg-neutral-200 dark:bg-neutral-900 flex-1'>
         {
           response.status==="error"&&
           <div className='h-full cursor-pointer flex flex-col gap-4 justify-center items-center'>

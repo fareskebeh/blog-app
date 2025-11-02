@@ -23,7 +23,15 @@ const BlogPreview = () => {
   });
 
   const savedPosts = useSavedPosts();
-  const isSaved = savedPosts.some((post) => post.id === id);
+  const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    if (savedPosts && savedPosts.length > 0) {
+      const match = savedPosts.some((post) => post.id === id);
+      setIsSaved(match);
+    }
+  }, [savedPosts, id]);
+
 
   useEffect(() => {
     window.scrollTo({
@@ -37,7 +45,7 @@ const BlogPreview = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err)
       });
   }, [id]);
 
@@ -143,7 +151,7 @@ const BlogPreview = () => {
           ></p>
 
           <button
-            onClick={() => saveOrUnsave(isSaved ? "unsave" : "save")}
+            onClick={() => {saveOrUnsave(isSaved ? "unsave" : "save"); setIsSaved(!isSaved)}}
             className={`transition duration-150 ${
               isSaved ? "text-amber-400" : "text-neutral-400"
             } cursor-pointer`}
