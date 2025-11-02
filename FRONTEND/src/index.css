@@ -6,121 +6,46 @@
     src: url(./assets/fonts/Inter-VariableFont_opszwght.ttf);
 }
 
-@theme {
-    --text-jetbrains {
-         font-family: "Monospace Regular";}
-}
-
 * {
     font-family:"Inter"
 }
 
-@media only screen and (max-width:480px) {
+@keyframes l7 {to{transform: rotate(.5turn)}}
+@keyframes l23 {to{transform: rotate(360deg)}}
 
-    .commenter {
-        @apply flex-col items-start
-    }
-
-    .commenter textarea {
-        @apply h-20 w-full
-    }
-
-    .commenter input {
-        @apply  w-[60%]
-    }
-
-    .copy {
-        @apply hidden
-    }
-
-    .genre {
-        @apply hidden
-    }
-
-    .blogtile img {
-        @apply hidden
-    }
-
-    .blogtile p {
-        @apply text-sm text-nowrap
-    }
-    
-    .blogtile h1 {
-        @apply text-base text-nowrap 
-    }
-
+:root {
+  --loader-rgb: 0 0 0;
 }
 
-@keyframes l7 {to{transform: rotate(.5turn)}}
-
-
-.loader {
-    width: 50px;
-    aspect-ratio: 1;
-    --_c:no-repeat radial-gradient(farthest-side,#2563eb 92%,#0000);
-    background: 
-      var(--_c) top,
-      var(--_c) left,
-      var(--_c) right,
-      var(--_c) bottom;
-    background-size: 12px 12px;
-    animation: l7 1s infinite;
-  }
+.dark {
+  --loader-rgb: 255 255 255;
+}
 
 .loader-2 {
   aspect-ratio: 1;
   display: grid;
   border-radius: 50%;
   background:
-    linear-gradient(0deg ,rgb(255 255 255/50%) 30%,#0000 0 70%,rgb(255 255 255/100%) 0) 50%/8% 100%,
-    linear-gradient(90deg,rgb(255 255 255/25%) 30%,#0000 0 70%,rgb(255 255 255/75% ) 0) 50%/100% 8%;
+    linear-gradient(0deg, rgb(var(--loader-rgb)/50%) 30%, #0000 0 70%, rgb(var(--loader-rgb)/100%) 0) 50%/8% 100%,
+    linear-gradient(90deg, rgb(var(--loader-rgb)/25%) 30%, #0000 0 70%, rgb(var(--loader-rgb)/75%) 0) 50%/100% 8%;
   background-repeat: no-repeat;
   animation: l23 1s infinite steps(12);
 }
+
 .loader-2::before,
 .loader-2::after {
-   content: "";
-   grid-area: 1/1;
-   border-radius: 50%;
-   background: inherit;
-   opacity: 0.915;
-   transform: rotate(30deg);
-}
-.loader-2::after {
-   opacity: 0.83;
-   transform: rotate(60deg);
-}
-
-.dark .loader-2 {
-  aspect-ratio: 1;
-  display: grid;
+  content: "";
+  grid-area: 1/1;
   border-radius: 50%;
-  background:
-    linear-gradient(0deg ,rgb(0 0 0/50%) 30%,#0000 0 70%,rgb(0 0 0/100%) 0) 50%/8% 100%,
-    linear-gradient(90deg,rgb(0 0 0/25%) 30%,#0000 0 70%,rgb(0 0 0/75% ) 0) 50%/100% 8%;
-  background-repeat: no-repeat;
-  animation: l23 1s infinite steps(12);
-}
-.dark .loader-2::before,
-.dark .loader-2::after {
-   content: "";
-   grid-area: 1/1;
-   border-radius: 50%;
-   background: inherit;
-   opacity: 0.915;
-   transform: rotate(30deg);
-}
-.dark .loader-2::after {
-   opacity: 0.83;
-   transform: rotate(60deg);
+  background: inherit;
 }
 
+.loader-2::before {
+  opacity: 0.915;
+  transform: rotate(30deg);
+}
 
-@keyframes l23 {
-    from {
-        rotate: 0;
-    }
-    to {
-        rotate: 360deg;
-    }
+.loader-2::after {
+  opacity: 0.83;
+  transform: rotate(60deg);
 }
