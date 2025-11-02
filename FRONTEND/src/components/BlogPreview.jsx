@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosInit from "../services/axios-init";
 import CommentSection from "./CommentSection";
-import { MdShare } from "react-icons/md";
-import { FaHeart, FaCheck, FaTimes, FaBookmark } from "react-icons/fa";
-import { AiOutlineLink } from "react-icons/ai";
-import copy from "copy-to-clipboard";
-const API_BASE = import.meta.env.VITE_API_BASE;
-import {AnimatePresence, motion} from "framer-motion"
+import { FaHeart, FaBookmark } from "react-icons/fa";
 import Markdown from "react-markdown"
 import Message from "../reusables/Message";
 
@@ -43,10 +38,6 @@ const BlogPreview = () => {
       });
   }, [id]);
 
-  const copyToclip = (link) => {
-    copy(link);
-    setOpen({ ...open, copiedMessage: true });
-  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -55,7 +46,12 @@ const BlogPreview = () => {
   }, [open.copiedMessage]);
 
   const savePost=()=> {
-    axiosInit.post(`${import.meta.env.VITE_API_BASE}save`,
+    setResponse({
+      status: "loading",
+      message: "Please Wait..",
+      shown: true,
+    })
+    axiosInit.post(`save`,
       {
         id:id 
       }, 
@@ -80,7 +76,7 @@ const BlogPreview = () => {
 
   return (
     <div
-      className={`p-4 transition duration-300
+      className={`p-4 pt-24 transition duration-300
         `}
     >
       <header>
@@ -97,7 +93,7 @@ const BlogPreview = () => {
       <div className="relative mb-8">
         <img
           className="w-full h-80 object-cover overflow-hidden rounded-4xl"
-          src={API_BASE + post.image}
+          src={import.meta.env.VITE_API_BASE + post.image}
           alt=""
         />
       </div>
@@ -135,7 +131,7 @@ const BlogPreview = () => {
         </div>
       </div>
 
-      <Message status={response.status} shown={response.shown} message={response.message} />
+      <Message response={response} setResponse={setResponse} />
 
       <CommentSection id={id} comments={post.comments} />
     </div>
