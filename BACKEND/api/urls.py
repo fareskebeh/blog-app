@@ -8,5 +8,6 @@ urlpatterns = [
     path("latest", views.latest),
     path("search", views.search),
     path("save", views.save_post),
+    path("unsave", views.unsave_post),
     path("saved",views.get_saved)
 ]   
