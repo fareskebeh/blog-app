@@ -82,6 +82,27 @@ def save_post(request):
         return Response({"error": "Internal Server Error"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     return Response({"data":"Post Saved"}, status=status.HTTP_200_OK)
 
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def unsave_post(request):
+    post_id = request.data.get("id")
+    if not post_id:
+        return Response({'error': "Missing post ID"}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        post_obj = get_object_or_404(Post, pk=post_id)
+        profile = request.user.user_profile
+        saved_post = SavedPost.objects.get(post=post_obj, profile=profile)
+        saved_post.delete()
+        return Response({"message": "Post unsaved successfully"}, status=status.HTTP_200_OK)
+    except SavedPost.DoesNotExist:
+        return Response({"error": "Saved post not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+    except Exception as e:
+        return Response({"error": "Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_saved(request):
