@@ -15,16 +15,11 @@ const Me = ({user}) => {
     }).then(res=> {
       setProfileInfo(res?.data)
     }).catch(err=> {
-      console.error(err)
     })
   },[token])
 
-  useEffect(()=> {
-      console.log(profileInfo)
-  },[profileInfo])
-
   return (
-    <div className='min-h-dvh md:*:flex-1 pt-24 px-4 gap-8 flex flex-col **:transition duration-150 md:flex-row'>
+    <div className='h-dvh md:*:flex-1 pt-24 px-4 gap-8 flex flex-col **:transition duration-150 md:flex-row'>
       <div className='flex gap-4 flex-col items-center md:items-start md:flex-row'>
         <img className='rounded-full w-30 sm:w-40 md:w-50' src={profileInfo?.avatar ? profileInfo.avatar : Avatar}/>
         <div className='space-y-2 text-center md:text-left'>
