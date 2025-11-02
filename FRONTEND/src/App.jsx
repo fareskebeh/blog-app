@@ -2,16 +2,18 @@ import Home from "./components/Home";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import BlogPreview from "./components/BlogPreview.jsx"
 import Nav from "./components/navigation/Nav.jsx";
-import { AuthProvider, useAuth } from "./hooks/useAuth.jsx";
+import { useAuth } from "./hooks/useAuth.jsx";
 import Login from "./authPages/Login.jsx";
 import EmailLogin from "./authPages/EmailLogin.jsx";
 import Register from "./authPages/Register.jsx";
 import Verify from "./authPages/Verify.jsx";
 import Me from "./components/user/Me.jsx";
 import Settings from "./components/user/Settings.jsx";
+import { useSavedPosts } from "./hooks/useSavedPosts.jsx";
 
 const App = () => {
   const {user} = useAuth()
+  const posts = useSavedPosts()
 
   return (
     <Router>
