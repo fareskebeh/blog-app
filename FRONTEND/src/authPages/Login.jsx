@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 const Login = () => {
   return (
-    <div className="h-[100dvh] **:transition flex justify-center items-center transition duration-150 bg-neutral-100 dark:bg-neutral-950 pt-20">
+    <div className="h-dvh **:transition flex justify-center items-center transition duration-150 bg-neutral-100 dark:bg-neutral-950 pt-20">
         <div className="flex flex-col gap-8">
             <p className="text-2xl sm:text-3xl w-[80%] md:text-4xl dark:text-white font-black">Log In to receive my latest blogs</p>
 
