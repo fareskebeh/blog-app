@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import axiosInit from "../services/axios-init";
 import CommentSection from "./CommentSection";
 import { FaHeart, FaBookmark } from "react-icons/fa";
-import Markdown from "react-markdown"
+import Markdown from "react-markdown";
 import Message from "../reusables/Message";
+import { useSavedPosts } from "../hooks/useSavedPosts";
 
 const BlogPreview = () => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   const { id } = useParams();
   const [post, setPost] = useState({});
   const [open, setOpen] = useState({
@@ -15,12 +16,14 @@ const BlogPreview = () => {
     copiedMessage: false,
   });
   const [liked, setLiked] = useState(false);
-  const[response,setResponse] = useState({
+  const [response, setResponse] = useState({
     shown: false,
-    message:"",
+    message: "",
     status: undefined,
-  })
+  });
 
+  const savedPosts = useSavedPosts();
+  const isSaved = savedPosts.some((post) => post.id === id);
 
   useEffect(() => {
     window.scrollTo({
@@ -38,41 +41,48 @@ const BlogPreview = () => {
       });
   }, [id]);
 
-
   useEffect(() => {
     setTimeout(() => {
       setOpen({ ...open, copiedMessage: false });
     }, 2000);
   }, [open.copiedMessage]);
 
-  const savePost=()=> {
+  const saveOrUnsave = (action) => {
     setResponse({
       status: "loading",
       message: "Please Wait..",
       shown: true,
-    })
-    axiosInit.post(`save`,
-      {
-        id:id 
-      }, 
-      {
-      headers: {
-        'Authorization':`Bearer ${token}`
-      }
-    }).then(res=> {
-      setResponse({
-        shown: true,
-        message:"Post saved!",
-        status: "success"
+    });
+    axiosInit
+      .post(
+        action === "save" ? "save" : "unsave",
+        {
+          id: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setResponse({
+          shown: true,
+          message: action === "save" ? "Post Saved!" : "Post Unsaved!",
+          status: "success",
+        });
       })
-    }).catch(err=> {
-      setResponse({
-        shown: true,
-        message:"Could not save post, try again!",
-        status: "error"
-      })
-    })
-  }
+      .catch((err) => {
+        setResponse({
+          shown: true,
+          message:
+            action === "save"
+              ? "Could not save post, try again!"
+              : "Could not unsave post, try again!",
+          status: "error",
+        });
+      });
+  };
 
   return (
     <div
@@ -80,7 +90,11 @@ const BlogPreview = () => {
         `}
     >
       <header>
-        <p className={`font-bold text-5xl mb-2 transition duration-150 dark:text-white`}>{post.title} </p>
+        <p
+          className={`font-bold text-5xl mb-2 transition duration-150 dark:text-white`}
+        >
+          {post.title}{" "}
+        </p>
         <div
           className={`**:text-xl flex dark:text-neutral-500 text-neutral-700 flex-col gap-2
                 **:italic pl-2 mb-4`}
@@ -91,18 +105,22 @@ const BlogPreview = () => {
       </header>
 
       <div className="relative mb-8">
-        <img
-          className="w-full h-80 object-cover overflow-hidden rounded-4xl"
-          src={import.meta.env.VITE_API_BASE + post.image}
-          alt=""
-        />
+        { post.image?
+          <img
+            className="w-full h-80 object-cover overflow-hidden rounded-4xl"
+            src={import.meta.env.VITE_API_BASE + post.image}
+            alt=""
+          />
+          :
+          <div className="w-full bg-neutral-200 dark:bg-neutral-900 animate-pulse h-80 overflow-hidden rounded-4xl">
+            
+          </div>
+        }
       </div>
 
       <div>
         <div className="py-4 text-lg prose dark:[&>hr]:border-neutral-900 *:transition duration-150 dark:prose-invert">
-        <Markdown>
-          {post.body}
-        </Markdown>
+          <Markdown>{post.body}</Markdown>
         </div>
         <div className="flex mb-4 items-center gap-2 p-2">
           <div className="flex  items-center gap-2">
@@ -122,11 +140,15 @@ const BlogPreview = () => {
           <p
             className={`
             `}
-          >
-          </p>
+          ></p>
 
-          <button onClick={savePost} className="ml-2 cursor-pointer text-neutral-400">
-            <FaBookmark size={28}/>
+          <button
+            onClick={() => saveOrUnsave(isSaved ? "unsave" : "save")}
+            className={`transition duration-150 ${
+              isSaved ? "text-amber-400" : "text-neutral-400"
+            } cursor-pointer`}
+          >
+            <FaBookmark size={28} />
           </button>
         </div>
       </div>
