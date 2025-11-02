@@ -3,14 +3,16 @@ import { useParams } from "react-router-dom";
 import axiosInit from "../services/axios-init";
 import CommentSection from "./CommentSection";
 import { MdShare } from "react-icons/md";
-import { FaHeart, FaCheck, FaTimes } from "react-icons/fa";
+import { FaHeart, FaCheck, FaTimes, FaBookmark } from "react-icons/fa";
 import { AiOutlineLink } from "react-icons/ai";
 import copy from "copy-to-clipboard";
 const API_BASE = import.meta.env.VITE_API_BASE;
 import {AnimatePresence, motion} from "framer-motion"
 import Markdown from "react-markdown"
+import Message from "../reusables/Message";
 
 const BlogPreview = () => {
+  const token = localStorage.getItem('token')
   const { id } = useParams();
   const [post, setPost] = useState({});
   const [open, setOpen] = useState({
@@ -18,6 +20,12 @@ const BlogPreview = () => {
     copiedMessage: false,
   });
   const [liked, setLiked] = useState(false);
+  const[response,setResponse] = useState({
+    shown: false,
+    message:"",
+    status: undefined,
+  })
+
 
   useEffect(() => {
     window.scrollTo({
@@ -45,6 +53,30 @@ const BlogPreview = () => {
       setOpen({ ...open, copiedMessage: false });
     }, 2000);
   }, [open.copiedMessage]);
+
+  const savePost=()=> {
+    axiosInit.post(`${import.meta.env.VITE_API_BASE}save`,
+      {
+        id:id 
+      }, 
+      {
+      headers: {
+        'Authorization':`Bearer ${token}`
+      }
+    }).then(res=> {
+      setResponse({
+        shown: true,
+        message:"Post saved!",
+        status: "success"
+      })
+    }).catch(err=> {
+      setResponse({
+        shown: true,
+        message:"Could not save post, try again!",
+        status: "error"
+      })
+    })
+  }
 
   return (
     <div
@@ -96,43 +128,14 @@ const BlogPreview = () => {
             `}
           >
           </p>
-          <div className="relative flex items-center">
-            <button
-              onFocus={() => setOpen({ ...open, copyLink: true })}
-              onClick={()=>setOpen({...open, copyLink: !open.copyLink})}
-              className="hover:scale-107 active:scale-100 transition duration-300 cursor-pointer text-neutral-400"
-            >
-              {open.copyLink ? <FaTimes size={28} /> : <MdShare size={28} />}
-            </button>
 
-            <AnimatePresence>
-            { open.copyLink &&
-              <motion.div
-              initial={{opacity:0, y:-20}}
-              animate={{opacity:1, y:0}}
-              exit={{opacity:0, y:-20}}
-              transition={{duration:0.2}}
-              className={`transition-colors dark:bg-neutral-900 bg-white duration-150 overflow-hidden
-              shadow-md rounded-2xl text-nowrap absolute flex gap-2 -bottom-20 p-4`}
-            >
-              <p className={`copy dark:text-neutral-500 border-2 p-2 rounded-xl border-neutral-300 dark:border-neutral-800`}>
-                {window.location.href}
-              </p>
-              <button
-                onClick={() => {
-                  copyToclip(window.location.href);
-                }}
-                className={`${
-                  open.copiedMessage ? "bg-green-500" : ""
-                } bg-blue-500 *:fill-white py-2 rounded-xl px-3 cursor-pointer shadow-sm hover:scale-102 active:scale-100 transition duration-300`}
-              >
-                {open.copiedMessage ? <FaCheck size={23}/> : <AiOutlineLink size={23}/>}
-              </button>
-            </motion.div>}
-            </AnimatePresence>
-          </div>
+          <button onClick={savePost} className="ml-2 cursor-pointer text-neutral-400">
+            <FaBookmark size={28}/>
+          </button>
         </div>
       </div>
+
+      <Message status={response.status} shown={response.shown} message={response.message} />
 
       <CommentSection id={id} comments={post.comments} />
     </div>
