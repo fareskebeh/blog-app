@@ -6,15 +6,14 @@ import { FaHeart, FaBookmark } from "react-icons/fa";
 import Markdown from "react-markdown";
 import Message from "../reusables/Message";
 import { useSavedPosts } from "../hooks/useSavedPosts";
+import AuthModal from "../reusables/AuthModal";
+import { AnimatePresence } from "framer-motion";
 
 const BlogPreview = () => {
   const token = localStorage.getItem("token");
   const { id } = useParams();
+  const[modal,setModal] = useState(false)
   const [post, setPost] = useState({});
-  const [open, setOpen] = useState({
-    copyLink: false,
-    copiedMessage: false,
-  });
   const [liked, setLiked] = useState(false);
   const [response, setResponse] = useState({
     shown: false,
@@ -25,13 +24,14 @@ const BlogPreview = () => {
   const savedPosts = useSavedPosts();
   const [isSaved, setIsSaved] = useState(false);
 
+  { token &&
   useEffect(() => {
     if (savedPosts && savedPosts.length > 0) {
       const match = savedPosts.some((post) => post.id === id);
       setIsSaved(match);
     }
   }, [savedPosts, id]);
-
+  } 
 
   useEffect(() => {
     window.scrollTo({
@@ -49,13 +49,20 @@ const BlogPreview = () => {
       });
   }, [id]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setOpen({ ...open, copiedMessage: false });
-    }, 2000);
-  }, [open.copiedMessage]);
+  useEffect(()=> {
+    if(modal) {
+      document.body.style.overflowY = "hidden"
+    }
+    else {
+      document.body.style.overflowY = "auto"
+    }
+  },[modal])
 
   const saveOrUnsave = (action) => {
+    if(!token) {
+      setModal(true)
+      return
+    }
     setResponse({
       status: "loading",
       message: "Please Wait..",
@@ -79,6 +86,7 @@ const BlogPreview = () => {
           message: action === "save" ? "Post Saved!" : "Post Unsaved!",
           status: "success",
         });
+        setIsSaved(!isSaved)
       })
       .catch((err) => {
         setResponse({
@@ -94,12 +102,12 @@ const BlogPreview = () => {
 
   return (
     <div
-      className={`p-4 pt-24 transition duration-300
+      className={`p-4 pt-24 transition-colors duration-300
         `}
     >
       <header>
         <p
-          className={`font-bold text-5xl mb-2 transition duration-150 dark:text-white`}
+          className={`font-bold text-5xl mb-2 transition-colors duration-150 dark:text-white`}
         >
           {post.title}{" "}
         </p>
@@ -127,7 +135,7 @@ const BlogPreview = () => {
       </div>
 
       <div>
-        <div className="py-4 text-lg prose dark:[&>hr]:border-neutral-900 *:transition duration-150 dark:prose-invert">
+        <div className="py-4 text-lg prose dark:[&>hr]:border-neutral-900 *:transition-colors duration-150 dark:prose-invert">
           <Markdown>{post.body}</Markdown>
         </div>
         <div className="flex mb-4 items-center gap-2 p-2">
@@ -137,7 +145,7 @@ const BlogPreview = () => {
               className="**:fill-neutral-400 cursor-pointer "
             >
               <FaHeart
-                className={`transition duration-300 hover:scale-105 active:scale-110 ${
+                className={`transition-colors duration-300 hover:scale-105 active:scale-110 ${
                   liked ? "fill-rose-700" : ""
                 }`}
                 size={28}
@@ -151,8 +159,8 @@ const BlogPreview = () => {
           ></p>
 
           <button
-            onClick={() => {saveOrUnsave(isSaved ? "unsave" : "save"); setIsSaved(!isSaved)}}
-            className={`transition duration-150 ${
+            onClick={() => saveOrUnsave(isSaved ? "unsave" : "save")}
+            className={`transition-colors duration-150 ${
               isSaved ? "text-amber-400" : "text-neutral-400"
             } cursor-pointer`}
           >
@@ -161,6 +169,11 @@ const BlogPreview = () => {
         </div>
       </div>
 
+      <AnimatePresence>
+        { modal&&       
+          <AuthModal modal={modal} setModal={setModal}/>
+        }
+      </AnimatePresence>
       <Message response={response} setResponse={setResponse} />
 
       <CommentSection id={id} comments={post.comments} />
