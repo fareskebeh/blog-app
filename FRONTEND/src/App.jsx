@@ -31,6 +31,7 @@ const App = () => {
         <Route path="/verify" element={user? <Navigate to="/"/> : <Verify/>}/>
         <Route path="/me" element={user? <Me user={user}/> : <Navigate to="/"/>}/>
         <Route path="/settings" element={user? <Settings user={user}/> : <Navigate to="/"/>}>
+          <Route index element={<Navigate to="account" replace />} />
           <Route path="account" element={<Account/>}/>
           <Route path="edit-profile" element={<Edit/>}/>
           <Route path="preferences" element={<Preferences/>}/>
