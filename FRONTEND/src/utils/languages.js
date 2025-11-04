@@ -1,0 +1,22 @@
+export const languages = [
+  "English",
+  "Español",
+  "Français", 
+  "Deutsch",  
+  "Italiano", 
+  "Português",
+  "Русский",  
+  "العربية",  
+  "中文",     
+  "日本語",   
+  "한국어",   
+  "हिन्दी",      
+  "বাংলা",       
+  "Türkçe",   
+  "فارسی",    
+  "தமிழ்",      
+  "اردو",     
+  "Swahili",  
+  "Ελληνικά", 
+  "Polski"    
+]
