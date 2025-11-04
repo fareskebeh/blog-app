@@ -1,5 +1,5 @@
 import Home from "./components/Home";
-import {BrowserRouter as Router, Routes, Route, Outlet} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route, Outlet, Navigate} from "react-router-dom"
 import BlogPreview from "./components/BlogPreview.jsx"
 import Nav from "./components/navigation/Nav.jsx";
 import { useAuth } from "./hooks/useAuth.jsx";
@@ -25,12 +25,12 @@ const App = () => {
         <Routes>
         <Route path="/" element={<Home/>} />
 
-        <Route path="/login" element={user ? <Home/> : <Login/>} />
-        <Route path="/login-with-email" element={user ? <Home/> : <EmailLogin/>} />
-        <Route path="/register" element={user? <Home/> : <Register/>} />
-        <Route path="/verify" element={user? <Home/> : <Verify/>}/>
-        <Route path="/me" element={user? <Me user={user}/> : <Home/>}/>
-        <Route path="/settings" element={user? <Settings user={user}/> : <Home/>}>
+        <Route path="/login" element={user ? <Navigate to="/"/> : <Login/>} />
+        <Route path="/login-with-email" element={user ? <Navigate to="/"/> : <EmailLogin/>} />
+        <Route path="/register" element={user? <Navigate to="/"/> : <Register/>} />
+        <Route path="/verify" element={user? <Navigate to="/"/> : <Verify/>}/>
+        <Route path="/me" element={user? <Me user={user}/> : <Navigate to="/"/>}/>
+        <Route path="/settings" element={user? <Settings user={user}/> : <Navigate to="/"/>}>
           <Route path="account" element={<Account/>}/>
           <Route path="edit-profile" element={<Edit/>}/>
           <Route path="preferences" element={<Preferences/>}/>
