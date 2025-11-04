@@ -42,13 +42,13 @@ const SavedBlogs = () => {
   },[])
 
   return (
-    <div className='**:transition duration-150 py-4 flex flex-col gap-4'>
+    <div className='**:transition h-full duration-150 py-4 flex flex-1 flex-col gap-4'>
       <div className='space-y-2'>
         <p className='dark:text-white text-xl sm:text-2xl md:text-3xl font-bold'>Saved Blogs</p>
         <p className='dark:text-neutral-700 text-neutral-700 text-base sm:text-xl'>Below is a list of blogs you have saved</p>
       </div>
 
-      <div className='rounded-2xl shadow-md border border-neutral-300 dark:border-neutral-800 overflow-y-scroll bg-neutral-200 dark:bg-neutral-900 flex-1'>
+      <div className='rounded-2xl shadow-md border border-neutral-300 dark:border-neutral-800 overflow-y-scroll bg-neutral-200 dark:bg-neutral-900 flex-1 h-full flex flex-col items-center justify-start'>
         {
           response.status==="error"&&
           <div className='h-full cursor-pointer flex flex-col gap-4 justify-center items-center'>
@@ -72,7 +72,7 @@ const SavedBlogs = () => {
             ))
           )
           :
-          <div className='h-full flex items-center justify-center flex-col gap-4'>
+          <div className='flex-1 flex items-center justify-center flex-col gap-4'>
             <FiBookmark className='size-12 text-neutral-500'/>
             <p className='text-lg md:text-xl w-[45%] text-center text-neutral-500'>You don't have any saved posts</p>
           </div>
