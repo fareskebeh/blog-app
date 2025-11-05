@@ -24,14 +24,19 @@ const BlogPreview = () => {
   const savedPosts = useSavedPosts();
   const [isSaved, setIsSaved] = useState(false);
 
-  { token &&
   useEffect(() => {
-    if (savedPosts && savedPosts.length > 0) {
-      const match = savedPosts.some((post) => post.id === id);
-      setIsSaved(match);
+    if(token) {
+      if (savedPosts && savedPosts.length > 0) {
+        const match = savedPosts.some((post) => post.id === id);
+        setIsSaved(match);
+      }
     }
   }, [savedPosts, id]);
-  } 
+  
+  //DEBUG
+  useEffect(()=> {
+    console.log(post.comments)
+  },[post])
 
   useEffect(() => {
     window.scrollTo({
