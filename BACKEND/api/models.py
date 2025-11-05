@@ -29,7 +29,7 @@ class Comment(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-    author = models.CharField(max_length=30, blank=False, null=False)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="author")
     content = models.TextField(blank=False, null=False)
     post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name="comments")
     date_created = models.DateTimeField(auto_now_add=True)
