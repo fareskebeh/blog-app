@@ -36,9 +36,10 @@ def review_post(request, pk):
 
 
 @api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def comment(request, pk):
     if request.method == "POST":
-        author = request.data.get("author")
+        author = request.user.user_profile
         content = request.data.get("content")
 
         if not author or not content:
