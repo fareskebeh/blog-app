@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from . import models
 from django.utils.timesince import timesince
+from profiles.serializers import ProfileInfo 
 
 class CommentSerializer(serializers.ModelSerializer):
+    author = ProfileInfo(many=False, read_only=True)
     date_created= serializers.SerializerMethodField()
     class Meta:
         model = models.Comment
