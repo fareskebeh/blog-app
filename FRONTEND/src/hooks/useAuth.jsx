@@ -6,29 +6,31 @@ const authContext = createContext()
 export const AuthProvider = ({children}) => {
     const [user,setUser] = useState(null)
     const [token,setToken]=useState("")
+    const[loading,setLoading] = useState(true)
+    
     useEffect(()=> {
-        const stored = localStorage.getItem("token")
-        if(stored){
-            setToken(stored)
+        const stored= localStorage.getItem("token")
+        if(!stored) {
+            setLoading(false)
+            return;
         }
-    },[])
-
-    useEffect(()=> {
-        if (!token) return;
+        setLoading(true)
 
         axiosInit.get(`${import.meta.env.VITE_API_BASE}auth/user`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                Authorization: `Bearer ${stored}`
             }
-        }).then(res=> {
-            setUser(res?.data)
-        }).catch(err=> {
-            console.log(err)
         })
-    },[token])
+        .then(res=>setUser(res.data))
+        .catch(err=> console.error(err))
+        .finally(()=> {
+            setToken(stored)
+            setLoading(false)
+        })
+    },[])
 
     return (
-        <authContext.Provider value={{user}}>
+        <authContext.Provider value={{user, loading}}>
             {children}
         </authContext.Provider>
   )
