@@ -1,63 +1,54 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Comment from "./Comment";
 import axiosInit from "../services/axios-init";
-import { FaCheck, FaTimes } from "react-icons/fa";
+import Message from "../reusables/Message";
 
 const CommentSection = ({ comments = [], id }) => {
+  const token = localStorage.getItem("token")
   const [currCom, setCurrCom] = useState({
-    author: "",
     content: "",
   });
-  const [message, setMessage] = useState({
+  const [response, setResponse] = useState({
     shown: false,
-    state: "",
+    message: "",
+    status: undefined,
   });
 
   const postComment = () => {
-    if (currCom.author.trim() === "" || currCom.content.trim() === "") {
+    if (currCom.content.trim() === "") {
       return;
     } else {
       axiosInit
-        .post(`post/${id}/comment`, currCom)
+        .post(`post/${id}/comment`, currCom, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
         .then((res) => {
           if (res) {
-            setMessage({ shown: true, state: "success" });
+            
+            setResponse({ 
+              message:"Comment Added!",
+              shown: true,
+              status: "success" });
           }
         })
         .catch((err) => {
-          setMessage({
+          setResponse({
+            message:"Could not add comment, Try again!",
             shown: true,
-            state: "error",
+            status: "error",
           });
         });
     }
   };
 
-  useEffect(() => {
-    if (message.shown === true) {
-      setTimeout(() => {
-        setMessage({ ...message, shown: false });
-      }, 3000);
-    }
-  }, [message.shown]);
-
   return (
     <>
       <div
-        className={`fixed  flex gap-2 items-center p-2 rounded-2xl z-90 transition-all duration-300 pointer-events-none text-white 
-          ${message.shown ? "bottom-4" : "-bottom-20"} 
-          ${message.state === "success" ? "bg-green-600" : "bg-red-500"}
-          `}
+        className={`flex gap-2 items-center p-2 rounded-2xl transition-all duration-300 pointer-events-none text-white `}
       >
-        {message.state === "error" ? (
-          <>
-            <FaTimes /> Couldn't add comment, Try again later.
-          </>
-        ) : (
-          <>
-            <FaCheck /> Comment Added!
-          </>
-        )}
+        
       </div>
       <div>
         
@@ -67,15 +58,7 @@ const CommentSection = ({ comments = [], id }) => {
             className={`commenter my-4 flex gap-2 **:outline-none **:shadow-md **:px-4 **:py-2 **:rounded-2xl **:resize-none
            `}
           >
-            <input
-              className={`dark:bg-neutral-900 transition duration-150 bg-neutral-200 dark:placeholder-neutral-600 placeholder-neutral-500 caret-blue-500 dark:text-white    
-            w-50`}
-              type="text"
-              placeholder="Your name.."
-              onChange={(e) =>
-                setCurrCom({ ...currCom, author: e.target.value })
-              }
-            />
+            
             <textarea
               rows="1"
               className={`dark:bg-neutral-900 transition duration-150 bg-neutral-200 dark:placeholder-neutral-600 placeholder-neutral-500 caret-blue-500 dark:text-white    
@@ -100,8 +83,9 @@ const CommentSection = ({ comments = [], id }) => {
             comments.map((comment, index) => (
               <div key={comment.id}>
                 <Comment
+                  avatar={comment.author.avatar}
                   id={comment.id}
-                  author={comment.author}
+                  by={comment.author.user}
                   date_created={comment.date_created}
                   content={comment.content}
                 />
@@ -130,6 +114,9 @@ const CommentSection = ({ comments = [], id }) => {
             </div>
           )}
         </div>
+        {
+          response.shown && <Message response={response} setResponse={setResponse}/>
+        }
       </div>
     </>
   );
