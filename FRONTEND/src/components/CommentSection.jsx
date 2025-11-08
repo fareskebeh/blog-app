@@ -2,6 +2,7 @@ import { useState } from "react";
 import Comment from "./Comment";
 import axiosInit from "../services/axios-init";
 import Message from "../reusables/Message";
+import { FaRegPaperPlane } from "react-icons/fa";
 
 const CommentSection = ({ comments = [], id }) => {
   const token = localStorage.getItem("token")
@@ -34,6 +35,7 @@ const CommentSection = ({ comments = [], id }) => {
           }
         })
         .catch((err) => {
+          console.error(err)
           setResponse({
             message:"Could not add comment, Try again!",
             shown: true,
@@ -46,35 +48,34 @@ const CommentSection = ({ comments = [], id }) => {
   return (
     <>
       <div
-        className={`flex gap-2 items-center p-2 rounded-2xl transition-all duration-300 pointer-events-none text-white `}
+        className={`flex **:transition duration-150 gap-2 items-center p-2 rounded-2xl transition pointer-events-none text-white `}
       >
         
       </div>
       <div>
         
-        <p className="text-3xl font-bold dark:text-white transition duration-150">Comments ({comments.length})</p>
-        <div className="">
-          <div
-            className={`commenter my-4 flex gap-2 **:outline-none **:shadow-md **:px-4 **:py-2 **:rounded-2xl **:resize-none
-           `}
-          >
-            
+        <p className="text-3xl font-bold dark:text-white">Comments ({comments.length})</p>
+        <div className="relative">
+          <div className={`h-30 my-4 **:transition duration-150`}>
             <textarea
               rows="1"
-              className={`dark:bg-neutral-900 transition duration-150 bg-neutral-200 dark:placeholder-neutral-600 placeholder-neutral-500 caret-blue-500 dark:text-white    
-                `}
+              className={`h-full pb-14 resize-none dark:bg-neutral-900 w-full bg-neutral-200 rounded-3xl p-4 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none`}
               type="text"
               placeholder="Add a comment.."
               onChange={(e) =>
                 setCurrCom({ ...currCom, content: e.target.value })
               }
             />
-            <button
-              onClick={() => postComment()}
-              className="py-2 px-4 bg-blue-500 rounded-4xl cursor-pointer hover:scale-102 active:scale-100 transition duration-300 text-white shadow-md "
-              >
-              Add
-            </button>
+            <div className="absolute rounded-bl-3xl rounded-br-3xl dark:bg-neutral-900 bg-neutral-200 bottom-0 left-0 right-0 p-2 flex justify-between items-center">
+              <p className="ml-4 dark:text-neutral-700 text-neutral-500">{currCom.content.length}/500</p>
+              
+              <button
+                onClick={() => postComment()}
+                className="transition cursor-pointer hover:opacity-90 active:opacity-80 duration-150 p-2 dark:bg-white text-white dark:text-black bg-black rounded-full"
+                >
+                <FaRegPaperPlane size={20}/>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -103,7 +104,7 @@ const CommentSection = ({ comments = [], id }) => {
             p-8 flex justify-center`}
             >
               <div
-                className={`p-8 rounded-xl text-center *:transition duration-150
+                className={`p-8 rounded-xl text-center *
                 `}
               >
                 <p className="text-3xl font-bold dark:text-white ">No comments here</p>
