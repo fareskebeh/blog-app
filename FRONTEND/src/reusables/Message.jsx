@@ -29,7 +29,7 @@ const Message = ({
           animate={{opacity:1, x:0}}
           exit={{opacity:0, x:-50}}
           transition={{duration:0.15}}
-          className="fixed bottom-12 left-12 justify-center transition-colors duration-150 dark:bg-neutral-900 dark:text-white flex items-center gap-2 bg-neutral-200 shadow-md rounded-xl  p-4 border dark:border-black border-neutral-300"
+          className="fixed bottom-12 left-12 justify-center transition-colors duration-150 dark:bg-neutral-900 dark:text-white flex items-center gap-2 bg-neutral-200 shadow-md rounded-xl  p-4 border dark:border-black border-neutral-300 z-999"
         >
           {response.status === "error" ? (
             <FaRegCircleXmark color="#ad2e24" size={22} />
