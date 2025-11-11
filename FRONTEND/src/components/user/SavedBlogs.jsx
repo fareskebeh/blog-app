@@ -66,7 +66,7 @@ const SavedBlogs = () => {
           posts ? 
           (
             posts.map((p,index)=> (
-              <Link to={`/post/${p.id}`} key={index}>
+              <Link to={`/post/${p.id}`} className='w-full' key={index}>
                 <BlogTile title={p.title} image={p.image} genre={p.genre} date_created={p.date_created} time_required={p.time_required}/>
               </Link>
             ))

@@ -3,8 +3,11 @@ import Comment from "./Comment";
 import axiosInit from "../services/axios-init";
 import Message from "../reusables/Message";
 import { FaRegPaperPlane } from "react-icons/fa";
+import {useAuth} from "../hooks/useAuth"
+import { Link } from "react-router-dom";
 
 const CommentSection = ({ comments = [], id }) => {
+  const {user} = useAuth();
   const token = localStorage.getItem("token")
   const [currCom, setCurrCom] = useState({
     content: "",
@@ -63,7 +66,15 @@ const CommentSection = ({ comments = [], id }) => {
         
           <p className="text-3xl transition duration-150 font-bold dark:text-white">Comments ({comments.length})</p>
           
-          <div className={`flex flex-1 flex-col`}>
+          <div className={`flex flex-1 flex-col **:transition duration-150 relative z-999`}>
+            { !user &&
+              <div className="absolute rounded-3xl bg-white dark:bg-neutral-950 z-899 inset-0 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-2">
+                  <p className="dark:text-neutral-400 sm:text-lg md:text-xl">Log in to comment on posts</p>
+                  <Link className="dark:bg-white dark:text-black text-white sm:text-base md:text-lg bg-black p-2 rounded-xl" to="/login">Log In</Link>
+                </div>
+              </div>
+            }
             <textarea
               className={`pb-14 flex-1 md:h-full resize-none dark:bg-neutral-900 w-full bg-neutral-200 rounded-tr-3xl rounded-tl-3xl p-4 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none transition duration-150`}
               type="text"
