@@ -14,7 +14,7 @@ class Post(models.Model):
     genre = models.CharField(max_length=20, default="")
     date_created = models.DateTimeField(auto_now_add=True)
     time_required = models.IntegerField()
-    likes = models.IntegerField()
+    likes = models.ManyToManyField(Profile, related_name="likes")
     def __str__(self):
         return self.title
     
