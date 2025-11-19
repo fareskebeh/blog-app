@@ -133,3 +133,28 @@ def search(request):
             return Response({"data": serializer.data}, status=200)
         else:   
             return Response({"error":"No posts found"}, status=404)
+        
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def like(request):
+    post_id=request.data.get("id")
+    if not post_id:
+        return Response({'error':"Missing post ID"}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        return Response({"error":"Post not found"}, status=status.HTTP_404_NOT_FOUND)
+    profile = request.user.user_profile
+    if post.likes.filter(id=profile.id).exists():
+        post.likes.remove(profile)
+        try:
+            post.likes.add(profile)
+        except Exception as e:
+            return Response({"error": "Internal Server Error"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"data":"Post Liked"}, status=status.HTTP_200_OK)
+    else:
+        try:
+            post.likes.add(profile)
+        except Exception as e:
+            return Response({"error": "Internal Server Error"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"data":"Post Liked"}, status=status.HTTP_200_OK)
