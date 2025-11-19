@@ -66,9 +66,9 @@ const CommentSection = ({ comments = [], id }) => {
         
           <p className="text-3xl transition duration-150 font-bold dark:text-white">Comments ({comments.length})</p>
           
-          <div className={`flex flex-1 flex-col **:transition duration-150 relative z-999`}>
+          <div className={`flex flex-1 flex-col **:transition duration-150 relative z-799`}>
             { !user &&
-              <div className="absolute rounded-3xl bg-white dark:bg-neutral-950 z-899 inset-0 flex items-center justify-center">
+              <div className="absolute rounded-3xl bg-white dark:bg-neutral-950 z-799 inset-0 flex items-center justify-center">
                 <div className="flex flex-col items-center gap-2">
                   <p className="dark:text-neutral-400 sm:text-lg md:text-xl">Log in to comment on posts</p>
                   <Link className="dark:bg-white dark:text-black text-white sm:text-base md:text-lg bg-black p-2 rounded-xl" to="/login">Log In</Link>
@@ -96,7 +96,7 @@ const CommentSection = ({ comments = [], id }) => {
           </div>
         </div>
 
-        <div className="h-full overflow-y-auto md:border dark:border-neutral-800 border-neutral-300 md:shadow-md md:bg-neutral-200 md:dark:bg-neutral-900  px-4 rounded-xl">
+        <div className="h-full overflow-y-auto md:border dark:border-neutral-800 border-neutral-300 md:shadow-md md:bg-neutral-200 md:dark:bg-neutral-900  px-4 rounded-xl transition duration-150">
           {comments.length > 0 ? (
             comments.map((comment, index) => (
               <div key={comment.id}>
