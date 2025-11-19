@@ -146,15 +146,14 @@ def like(request):
         return Response({"error":"Post not found"}, status=status.HTTP_404_NOT_FOUND)
     profile = request.user.user_profile
     if post.likes.filter(id=profile.id).exists():
-        post.likes.remove(profile)
         try:
-            post.likes.add(profile)
-        except Exception as e:
+            post.likes.remove(profile)
+        except Exception:
             return Response({"error": "Internal Server Error"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response({"data":"Post Liked"}, status=status.HTTP_200_OK)
+        return Response({"data":"Post Unliked"}, status=status.HTTP_200_OK)
     else:
         try:
             post.likes.add(profile)
-        except Exception as e:
+        except Exception:
             return Response({"error": "Internal Server Error"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({"data":"Post Liked"}, status=status.HTTP_200_OK)
