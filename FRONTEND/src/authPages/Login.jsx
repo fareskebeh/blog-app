@@ -1,17 +1,45 @@
-import { FaGithub, FaGoogle, FaFacebookF } from "react-icons/fa"
 import { HiOutlineMail } from "react-icons/hi"
 import { Link } from "react-router-dom"
+import Google from "../assets/img/google.svg"
+import Gh from "../assets/img/github.svg"
+import LkdIn from "../assets/img/linkedin.svg"
+
 
 const Login = () => {
+  const providers = [
+    {
+      name: "Google",
+      link: "",
+      icon: Google,
+    },
+    {
+      name: "GitHub",
+      link: "",
+      icon: Gh,
+    },
+    {
+      name: "LinkedIn",
+      link: "",
+      icon: LkdIn,
+    }
+  ]
+
   return (
     <div className="h-dvh **:transition flex justify-center items-center transition duration-150 bg-neutral-100 dark:bg-neutral-950 pt-20">
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 flex-[0.9] sm:flex-[0.6] md:flex-[0.4]">
             <p className="text-2xl sm:text-3xl w-[80%] md:text-4xl dark:text-white font-black">Log In to receive my latest blogs</p>
 
-            <div className="flex *:flex *:hover:opacity-90 *:gap-2 *:text-white gap-4 flex-col *:justify-center *:cursor-pointer *:p-3 *:rounded-xl *:items-center *:text-xl *:outline-none">
-                <button className="bg-neutral-900 dark:bg-white dark:text-black"><FaGithub size={24}/>Continue with GitHub</button>
-                <button className="bg-red-700"><FaGoogle size={24}/>Continue with Google</button>
-                <button className="bg-sky-800"><FaFacebookF size={24}/>Continue with Facebook</button>
+            <div className="flex *:dark:bg-neutral-900 *:bg-neutral-200 *:shadow-md *:text-black *:hover:opacity-90 *:dark:text-white gap-4 flex-col *:cursor-pointer *:p-3 *:rounded-xl *:text-xl *:outline-none">
+                {
+                  providers?.map((p,i)=> (
+                    <Link className="flex justify-center" to={p.link} key={i}>
+                      <div className="flex flex-1 gap-4 justify-center">
+                        <img className={`w-6 ${p.icon===Gh && "invert-100 dark:invert-0"}`} src={p.icon}/>
+                        <p className="text-base sm:text-lg md:text-xl">Continue with {p.name}</p>
+                      </div>
+                    </Link>
+                  ))
+                }
             </div>
 
             <div className="flex items-center justify-center dark:text-neutral-400 text-neutral-600">
