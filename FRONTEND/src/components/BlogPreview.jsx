@@ -111,51 +111,61 @@ const BlogPreview = () => {
       });
   };
 
-  const likeOrUnlike= (action)=> {
-    if(!token) {
-      setModal(true)
-      return
-    }
-    setResponse({
-      status: "loading",
-      message: "Please Wait..",
-      shown: true,
-    });
-    axiosInit
-      .post(
-        "like",
-        {
-          id: id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(() => {
-        setResponse({
-          shown: true,
-          message: action === "like" ? "Post Liked!" : "Post Unliked!",
-          status: "success",
-        });
-        setLiked(!liked)
-        setPost({
-          ...post,
-          likes: action==="like"? post?.likes+1 : post?.likes-1
-        })
-      })
-      .catch(() => {
-        setResponse({
-          shown: true,
-          message:
-            action === "like"
-              ? "Could not like post, try again!"
-              : "Could not unlike post, try again!",
-          status: "error",
-        });
-      });
+  const likeOrUnlike = (action) => {
+  if (!token) {
+    setModal(true);
+    return;
   }
+  
+  setResponse({
+    status: "loading",
+    message: "Please Wait..",
+    shown: true,
+  });
+  
+  const wasLiked = liked;
+  const currentLikes = typeof post.likes === 'number' ? post.likes : 0;
+  const newLikeCount = action === "like" ? currentLikes + 1 : Math.max(0, currentLikes - 1);
+  
+  setLiked(action === "like");
+  setPost(prevPost => ({
+    ...prevPost,
+    likes: newLikeCount
+  }));
+  
+  axiosInit
+    .post(
+      "like",
+      { id: id },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then(() => {
+      setResponse({
+        shown: true,
+        message: action === "like" ? "Post Liked!" : "Post Unliked!",
+        status: "success",
+      });
+    })
+    .catch(() => {
+      setLiked(wasLiked);
+      setPost(prevPost => ({
+        ...prevPost,
+        likes: currentLikes
+      }));
+      
+      setResponse({
+        shown: true,
+        message: action === "like" 
+          ? "Could not like post, try again!"
+          : "Could not unlike post, try again!",
+        status: "error",
+      });
+    });
+};
 
   return (
     <div
@@ -203,7 +213,7 @@ const BlogPreview = () => {
             >
               <FaHeart className={` transition-all duration-150 hover:scale-105 active:scale-110 ${liked ? "text-rose-400" : "text-neutral-400"}`}size={28}/>
             </button>
-            <p className="text-neutral-500 text-xl">{post?.likes?.length ?? 0}</p>
+            <p className="text-neutral-500 text-xl">{typeof post.likes === 'number' ? post.likes : (post.likes?.length || 0)}</p>
           </div>
           <p
             className={`
