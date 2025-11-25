@@ -3,7 +3,7 @@ import React from "react";
 const Comment = ({ by, avatar, content, date_created }) => {
   return (
     <div className=" **:transition duration-150 flex gap-2 py-4 items-center">
-      <img className="w-12 h-12 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full border shadow-sm dark:border-neutral-700" src={import.meta.env.VITE_API_BASE+avatar}/> 
+      <img className="w-12 h-12 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full border shadow-sm dark:border-neutral-700" src={avatar}/> 
       <div className={`p-2 flex flex-col gap-2`}>
         <div className={`
           flex gap-2`}>
