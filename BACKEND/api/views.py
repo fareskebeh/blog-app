@@ -26,7 +26,7 @@ def review_post(request, pk):
         post = Post.objects.get(id=pk)
         comments = Comment.objects.filter(post=post)
         if post:
-            serializer = SinglePostSerializer(post)
+            serializer = SinglePostSerializer(post, many=False, context={'request': request})
             com_seri = CommentSerializer(comments)
             return Response({"data": serializer.data}, status=200)
         elif Post.DoesNotExist:
