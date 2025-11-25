@@ -14,12 +14,13 @@ const BlogPreview = () => {
   const { id } = useParams();
   const[modal,setModal] = useState(false)
   const [post, setPost] = useState({});
-  const [liked, setLiked] = useState(false);
   const [response, setResponse] = useState({
     shown: false,
     message: "",
     status: undefined,
   });
+  const [liked, setLiked] = useState(false);
+
 
   const savedPosts = useSavedPosts();
   const [isSaved, setIsSaved] = useState(false);
@@ -32,18 +33,23 @@ const BlogPreview = () => {
       }
     }
   }, [savedPosts, id]);
-  
-  //DEBUG
+
   useEffect(()=> {
-    console.log(post.comments)
-  },[post])
+    if(token) {
+      setLiked(post?.liked)
+    }
+  },[post.liked, id])
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
     });
     axiosInit
-      .get(`post/${id}`)
+      .get(`post/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then((res) => {
         if (res) {
           setPost(res.data.data);
@@ -85,7 +91,7 @@ const BlogPreview = () => {
           },
         }
       )
-      .then((res) => {
+      .then(() => {
         setResponse({
           shown: true,
           message: action === "save" ? "Post Saved!" : "Post Unsaved!",
@@ -93,7 +99,7 @@ const BlogPreview = () => {
         });
         setIsSaved(!isSaved)
       })
-      .catch((err) => {
+      .catch(() => {
         setResponse({
           shown: true,
           message:
@@ -104,6 +110,52 @@ const BlogPreview = () => {
         });
       });
   };
+
+  const likeOrUnlike= (action)=> {
+    if(!token) {
+      setModal(true)
+      return
+    }
+    setResponse({
+      status: "loading",
+      message: "Please Wait..",
+      shown: true,
+    });
+    axiosInit
+      .post(
+        "like",
+        {
+          id: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        setResponse({
+          shown: true,
+          message: action === "like" ? "Post Liked!" : "Post Unliked!",
+          status: "success",
+        });
+        setLiked(!liked)
+        setPost({
+          ...post,
+          likes: action==="like"? post?.likes+1 : post?.likes-1
+        })
+      })
+      .catch(() => {
+        setResponse({
+          shown: true,
+          message:
+            action === "like"
+              ? "Could not like post, try again!"
+              : "Could not unlike post, try again!",
+          status: "error",
+        });
+      });
+  }
 
   return (
     <div
@@ -129,7 +181,7 @@ const BlogPreview = () => {
         { post.image?
           <img
             className="w-full h-80 object-cover overflow-hidden rounded-4xl"
-            src={import.meta.env.VITE_API_BASE + post.image}
+            src={post.image}
             alt=""
           />
           :
@@ -146,17 +198,12 @@ const BlogPreview = () => {
         <div className="flex mb-4 items-center gap-2 p-2">
           <div className="flex  items-center gap-2">
             <button
-              onClick={() => setLiked(!liked)}
-              className="**:fill-neutral-400 cursor-pointer "
+              onClick={()=> likeOrUnlike(liked?"unlike":"like")}
+              className=" cursor-pointer "
             >
-              <FaHeart
-                className={`transition-colors duration-300 hover:scale-105 active:scale-110 ${
-                  liked ? "fill-rose-700" : ""
-                }`}
-                size={28}
-              />
+              <FaHeart className={` transition-all duration-150 hover:scale-105 active:scale-110 ${liked ? "text-rose-400" : "text-neutral-400"}`}size={28}/>
             </button>
-            <p className="text-neutral-500 text-xl">{post.likes}</p>
+            <p className="text-neutral-500 text-xl">{post?.likes?.length ?? 0}</p>
           </div>
           <p
             className={`
