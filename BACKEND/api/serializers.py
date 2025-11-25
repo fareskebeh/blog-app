@@ -13,6 +13,7 @@ class CommentSerializer(serializers.ModelSerializer):
         return f"{timesince(obj.date_created).split(',')[0]} ago"
 
 class SinglePostSerializer(serializers.ModelSerializer):
+    liked = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True, read_only = True)
     date_created = serializers.SerializerMethodField()
     class Meta:
@@ -20,7 +21,14 @@ class SinglePostSerializer(serializers.ModelSerializer):
         fields = "__all__"
     def get_date_created(self,obj):
         return obj.date_created.strftime("%B %d, %Y")
-
+    def get_liked(self,obj):
+        request= self.context.get("request")
+        if request and request.user.is_authenticated:
+            return obj.likes.filter(id=request.user.user_profile.id).exists()
+        return False
+    def like_count(self,obj)-> int:
+        return obj.likes.count()
+        
 class BulkPostSerializer(serializers.ModelSerializer):
     date_created= serializers.SerializerMethodField()
     comment_count = serializers.SerializerMethodField()
