@@ -1,3 +1,5 @@
+import typography from '@tailwindcss/typography'
+
 const config = {
   darkMode: 'class',
   content: [
@@ -8,7 +10,7 @@ const config = {
     extend: {},
   },
   plugins: [
-    import('@tailwindcss/typography')
+    typography
   ],
 }
 
