@@ -1,6 +1,4 @@
-
 const config = {
-  
   darkMode: 'class',
   content: [
     './index.html',
@@ -10,8 +8,8 @@ const config = {
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/typography')
+    import('@tailwindcss/typography')
   ],
 }
 
-export default config
+export default config;
