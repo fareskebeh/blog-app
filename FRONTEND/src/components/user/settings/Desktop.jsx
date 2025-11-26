@@ -1,7 +1,5 @@
-import React from 'react'
 import Nav from './Nav'
 import { Outlet } from 'react-router-dom'
-import {animate, AnimatePresence, motion} from "framer-motion"
 
 const Desktop = () => {
   return (

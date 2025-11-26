@@ -1,6 +1,6 @@
 import React from "react";
 const API_BASE = import.meta.env.VITE_API_BASE;
-import {motion} from "framer-motion"
+import {motion as Motion} from "framer-motion"
 
 const BlogTile = ({
   title,
@@ -8,11 +8,9 @@ const BlogTile = ({
   genre,
   date_created,
   time_required,
-  likes,
-  comment_count,
 }) => {
   return (
-    <motion.div initial={{opacity:0, y:10}} whileInView={{opacity:1, y:0}} transition={{duration:0.4}}>
+    <Motion.div initial={{opacity:0, y:10}} whileInView={{opacity:1, y:0}} transition={{duration:0.4}}>
     <div className="box-border relative p-4 rounded-2xl overflow-hidden my-2 mx-2 transition-all duration-200 hover:-translate-y-3 hover:scale-101 hover:scale-y-103 active:scale-100">
       <div style={{backgroundImage: `url(${API_BASE + image})`, backgroundPosition:"center", backgroundRepeat:"no-repeat", backgroundSize:"cover"}} className="absolute brightness-50 hover:brightness-70 top-0 left-0 right-0 bottom-0 z-0 transition-all duration-300">
       </div>
@@ -35,7 +33,7 @@ const BlogTile = ({
 
 
       </div>
-      </motion.div>
+      </Motion.div>
   );
 };
 

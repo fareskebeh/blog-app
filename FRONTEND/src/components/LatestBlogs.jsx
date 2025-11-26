@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import LatestCard from "./LatestCard";
 import {Link} from "react-router-dom"
 
 
 const LatestBlogs = ({ posts}) => {
    return (
-    <motion.div
+    <Motion.div
       initial={{
         opacity: 0,
       }}
@@ -31,7 +30,7 @@ const LatestBlogs = ({ posts}) => {
           })
         }
       </div>
-    </motion.div>
+    </Motion.div>
   );
 };
 

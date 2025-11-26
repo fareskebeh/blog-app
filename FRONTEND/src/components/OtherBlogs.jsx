@@ -42,6 +42,7 @@ export function OtherBlogs() {
         })
         .catch((err) => {
           console.error(err);
+          console.error(error)
           setPosts([]);
           setError(true);
           setLoading(false)
@@ -86,7 +87,7 @@ export function OtherBlogs() {
       <div className={`box-border`}>
         { loading ? <Loading/> :
         posts.length !== 0 ? (
-          posts.map((post, index) => (
+          posts.map((post) => (
             <Link to={`/post/${post.id}`} key={post.id}>
               <BlogTile
                 id={post.id}

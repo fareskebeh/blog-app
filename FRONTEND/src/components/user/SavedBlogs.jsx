@@ -29,7 +29,7 @@ const SavedBlogs = () => {
         status:"success"
       })
     })
-    .catch(err=> {
+    .catch(()=> {
       setResponse({
         status: "error",
         message: "Could not retrieve posts, Try again."

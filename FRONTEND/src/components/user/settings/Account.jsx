@@ -1,10 +1,10 @@
 import { HiOutlineExternalLink } from "react-icons/hi"
 import {FaRegTrashAlt} from "react-icons/fa"
-import {motion} from "framer-motion"
+import {motion as Motion} from "framer-motion"
 
 const Account = () => {
   return (
-    <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.3}} className='p-4 **:transition-colors duration-150'>
+    <Motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.3}} className='p-4 **:transition-colors duration-150'>
       <p className='text-3xl mt-2 mb-4 mx-4 dark:text-white text-black font-bold'>Account</p>
       <hr className='border-neutral-200 dark:border-neutral-700'/>
 
@@ -28,7 +28,7 @@ const Account = () => {
         </div>
         
       </div>
-    </motion.div>
+    </Motion.div>
   )
 }
 

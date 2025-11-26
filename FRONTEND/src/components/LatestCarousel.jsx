@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 const API_BASE = import.meta.env.VITE_API_BASE;
 import {
   FaArrowLeft,
@@ -6,7 +6,7 @@ import {
   FaCircle,
   FaRegCircle,
 } from "react-icons/fa";
-import {motion} from "framer-motion"
+import {motion as Motion} from "framer-motion"
 import {Link} from "react-router-dom"
 import {useSwipeable} from "react-swipeable"
 
@@ -40,7 +40,7 @@ const LatestCarousel = ({ posts = [] }) => {
       <Link to={`post/${posts[page].id}`} className="box-border p-4">
 
 
-        <motion.div {...gestures} key={page} initial={{opacity:0}} whileInView={{opacity:1}} animate={{opacity:1}} transition={{duration:0.8}}>
+        <Motion.div {...gestures} key={page} initial={{opacity:0}} whileInView={{opacity:1}} animate={{opacity:1}} transition={{duration:0.8}}>
         <div className={ `transition-all duration-150 shadow-lg relative h-90 m-4 rounded-3xl overflow-hidden`}>
 
             <img className="flex-1 w-full h-full object-cover" src={API_BASE + posts[page].image} alt="" />
@@ -66,7 +66,7 @@ const LatestCarousel = ({ posts = [] }) => {
             </div>
           </div>
         </div>
-        </motion.div>
+        </Motion.div>
         </Link>
 
 

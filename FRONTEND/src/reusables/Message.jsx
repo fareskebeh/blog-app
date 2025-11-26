@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion as Motion } from "framer-motion";
 import { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
@@ -24,7 +24,7 @@ const Message = ({
   return (
     <AnimatePresence>
       {response.shown && (
-        <motion.div
+        <Motion.div
           initial={{opacity:0, x:-50}}
           animate={{opacity:1, x:0}}
           exit={{opacity:0, x:-50}}
@@ -40,7 +40,7 @@ const Message = ({
         {
             response.message && <p>{response.message}</p>
         }
-        </motion.div>
+        </Motion.div>
       )}
     </AnimatePresence>
   );

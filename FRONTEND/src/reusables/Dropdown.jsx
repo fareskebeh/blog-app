@@ -1,5 +1,5 @@
 import { HiChevronDown } from 'react-icons/hi'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion as Motion } from 'framer-motion'
 import { useState } from 'react'
 
 const Dropdown = ({data, defaultVal}) => {
@@ -11,13 +11,13 @@ const Dropdown = ({data, defaultVal}) => {
         <HiChevronDown className={`${open ? "transform:rotate-180" : ""}`}/>
         <AnimatePresence>
         { open &&
-        <motion.div onClick={(e)=> e.stopPropagation()} initial={{opacity:0, y:-10}} animate={{opacity:1, y:0}} exit={{opacity:0, y:-10}} transition={{duration:0.1}} className='absolute p-2 shadow-md bg-neutral-100 rounded-xl top-[110%] inset-x-0 flex flex-col gap-2 dark:bg-neutral-900 max-h-60 overflow-y-auto'>
+        <Motion.div onClick={(e)=> e.stopPropagation()} initial={{opacity:0, y:-10}} animate={{opacity:1, y:0}} exit={{opacity:0, y:-10}} transition={{duration:0.1}} className='absolute p-2 shadow-md bg-neutral-100 rounded-xl top-[110%] inset-x-0 flex flex-col gap-2 dark:bg-neutral-900 max-h-60 overflow-y-auto'>
             {
                 data.map((d,index)=> (
                     <p onClick={()=> {setNewVal(d); setOpen(false)}} className={`p-2 select-none rounded-lg ${newVal===d ? "bg-black text-white dark:text-black dark:bg-white" : "hover:bg-neutral-200 dark:hover:bg-neutral-800"}`} key={index}>{d}</p>
                 ))
             }
-        </motion.div>
+        </Motion.div>
         }
         </AnimatePresence>
     </div>

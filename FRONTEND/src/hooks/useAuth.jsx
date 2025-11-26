@@ -5,8 +5,7 @@ const authContext = createContext()
 
 export const AuthProvider = ({children}) => {
     const [user,setUser] = useState(null)
-    const [token,setToken]=useState("")
-    const[loading,setLoading] = useState(true)
+    const [loading,setLoading] = useState(true)
     
     useEffect(()=> {
         const stored= localStorage.getItem("token")
@@ -24,7 +23,6 @@ export const AuthProvider = ({children}) => {
         .then(res=>setUser(res.data))
         .catch(err=> console.error(err))
         .finally(()=> {
-            setToken(stored)
             setLoading(false)
         })
     },[])
@@ -37,4 +35,3 @@ export const AuthProvider = ({children}) => {
 }
 
 export const useAuth = ()=> useContext(authContext)
-

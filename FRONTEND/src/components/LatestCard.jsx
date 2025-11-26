@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
 import Img from "../assets/img/placeholder.png";
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 
-const LatestCard = ({date_created, genre, id, image, time_required, title}) => {
+const LatestCard = ({date_created, genre, image, time_required, title}) => {
   return (
     <div
       className={`
@@ -12,7 +11,7 @@ const LatestCard = ({date_created, genre, id, image, time_required, title}) => {
       
       <div className="relative mb-2 h-[50%]">
         <img
-          className="rounded-3xl object-cover w-[100%] h-[100%]"
+          className="rounded-3xl object-cover w-full h-full"
           src={API_BASE + image}
           alt=""
         />
