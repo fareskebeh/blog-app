@@ -13,8 +13,7 @@ const Edit = () => {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }).then(res=> {
-      console.log(res)
+    }).then((res)=> {
       if(res) {
         setProfileData(res.data)
       }

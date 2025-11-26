@@ -14,8 +14,7 @@ const Me = ({user}) => {
       }
     }).then(res=> {
       setProfileInfo(res?.data)
-    }).catch(err=> {
-      console.log(err)
+    }).catch(()=> {
     })
   },[token])
 

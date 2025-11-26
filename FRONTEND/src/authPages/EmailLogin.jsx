@@ -65,8 +65,7 @@ const EmailLogin = () => {
         }
       }
     })
-    .catch(err=>{
-      console.log(err)
+    .catch(()=>{
       setResponse({
         status: "error",
       })

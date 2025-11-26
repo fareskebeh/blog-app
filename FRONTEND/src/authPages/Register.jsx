@@ -55,20 +55,17 @@ const Register = () => {
       return;
     }
 
-    console.log(credentials)
     axiosInit.post(`${import.meta.env.VITE_API_BASE}auth/registration/`, credentials, {
       headers: {
         "Content-Type": "application/json"
       }
     })
-    .then(res=> {
-      console.log(res)
+    .then((res)=> {
       if(res.status===201) {
         navigate("/verify")
       }
     })
     .catch(err=>{
-      console.log(err)
       setResponse({
         status: "error",
         message: err.data
