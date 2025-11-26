@@ -24,6 +24,7 @@ const BlogPreview = () => {
 
   const savedPosts = useSavedPosts();
   const [isSaved, setIsSaved] = useState(false);
+  const [likeCount, setLikeCount] = useState(0)
 
   useEffect(() => {
     if(token) {
@@ -33,6 +34,10 @@ const BlogPreview = () => {
       }
     }
   }, [savedPosts, id]);
+
+  useEffect(()=> {
+    setLikeCount(post?.likes?.length ?? 0)
+  },[post])
 
   useEffect(()=> {
     if(token) {
@@ -123,15 +128,7 @@ const BlogPreview = () => {
     shown: true,
   });
   
-  const wasLiked = liked;
-  const currentLikes = typeof post.likes === 'number' ? post.likes : 0;
-  const newLikeCount = action === "like" ? currentLikes + 1 : Math.max(0, currentLikes - 1);
-  
   setLiked(action === "like");
-  setPost(prevPost => ({
-    ...prevPost,
-    likes: newLikeCount
-  }));
   
   axiosInit
     .post(
@@ -149,14 +146,13 @@ const BlogPreview = () => {
         message: action === "like" ? "Post Liked!" : "Post Unliked!",
         status: "success",
       });
+      setLikeCount(prev=> {
+        return action==="like" ? prev +1 : prev -1;
+      })
     })
     .catch(() => {
-      setLiked(wasLiked);
-      setPost(prevPost => ({
-        ...prevPost,
-        likes: currentLikes
-      }));
-      
+      setLiked(liked);
+            
       setResponse({
         shown: true,
         message: action === "like" 
@@ -213,7 +209,7 @@ const BlogPreview = () => {
             >
               <FaHeart className={` transition-all duration-150 hover:scale-105 active:scale-110 ${liked ? "text-rose-400" : "text-neutral-400"}`}size={28}/>
             </button>
-            <p className="text-neutral-500 text-xl">{typeof post.likes === 'number' ? post.likes : (post.likes?.length || 0)}</p>
+            <p className={`${liked ? "text-rose-400" : "text-neutral-400"} transition duration-150 text-xl`}>{likeCount}</p>
           </div>
           <p
             className={`
