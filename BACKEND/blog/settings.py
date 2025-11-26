@@ -7,10 +7,10 @@ load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS","").split(",")
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS","").split(",")
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS","").split(",") if os.getenv("ALLOWED_HOSTS") else [] 
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS","").split(",") if os.getenv("ALLOWED_HOSTS") else []
 
-DEBUG= os.getenv("DEBUG")
+DEBUG= os.getenv("DEBUG", "").lower() in ("true","1","yes")
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
