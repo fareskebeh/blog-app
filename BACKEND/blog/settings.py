@@ -12,6 +12,7 @@ CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS","").split(",") if os.get
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS","").split(",") if os.getenv("ALLOWED_HOSTS") else []
 
 DEBUG= os.getenv("DEBUG", "").lower() in ("true","1","yes")
+PROD = os.getenv("PROD","").lower() in ('true', '1', 'yes')
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -89,13 +90,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "blog.wsgi.application"
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
+
+if PROD == True:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.getenv('DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+else:
+    DATABASES= {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -129,7 +139,7 @@ MEDIA_URL = '/media/'
 
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_SIGNUP_FIELDS=['email*','username*','password1*','password2*']
-ACCOUNT_EMAIL_VERIFICATION="mandatory"
+ACCOUNT_EMAIL_VERIFICATION="none"
 ACCOUNT_UNIQUE_EMAIL = True
 
 
