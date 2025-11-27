@@ -90,14 +90,11 @@ TEMPLATES = [
 WSGI_APPLICATION = "blog.wsgi.application"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("PG_DBNAME"),
-        "USER": os.getenv("PG_USER"),
-        "PASSWORD":os.getenv("PG_PASSWORD"),
-        "HOST": os.getenv("PG_HOST"),
-        "PORT": os.getenv("PG_PORT"),
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
