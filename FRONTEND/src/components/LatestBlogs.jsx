@@ -17,7 +17,7 @@ const LatestBlogs = ({ posts}) => {
       }}
     >
       <div
-        className={`flex justify-around gap-8 p-8
+        className={`flex justify-between gap-8 p-8
         `}
       >
         {
