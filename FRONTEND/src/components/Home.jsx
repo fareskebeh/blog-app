@@ -5,11 +5,13 @@ import { motion as Motion } from "framer-motion";
 import LatestBlogs from "./LatestBlogs.jsx";
 import LatestCarousel from "./LatestCarousel.jsx";
 import Error from "../fallback/Error";
-import Loading from "../fallback/Loading";
+import PostLoadError from "../fallback/error/PostLoadError.jsx"
+import OtherBlogsError from "../fallback/error/OtherBlogsError.jsx";
+import LatestSk from "../fallback/skeleton/LatestSk.jsx";
 
 const Home = () => {
 
-    const [loading, setLoading] = useState(true);
+  const[status,setStatus] = useState("")
     
   const[posts,setPosts] = useState([])
   const [view, setView] = useState(
@@ -17,15 +19,17 @@ const Home = () => {
   );
 
   useEffect(() => {
-      setLoading(true)
+      setStatus('loading')
       axiosInit.get("latest")
       .then((res)=> {
         if(res) {
           setPosts(res.data.data)
-          setLoading(false)
-        }
-        
-      }).catch(()=> {
+          setStatus(posts? 'success' : 'empty')
+        }   
+      })
+      .catch((err)=> {
+        console.error(err)
+        setStatus('error')
       })
     }, []);
   
@@ -51,7 +55,7 @@ const Home = () => {
 
   return (
     <div
-      className={`pt-20 transition duration-150
+      className={`pt-20 px-4 min-h-dvh transition duration-150
     `}
     >
       <Motion.div
@@ -73,15 +77,13 @@ const Home = () => {
       </Motion.div>
 
       { 
-      loading ? <Loading/> :
-      posts.length!==0 ?
+      status!=='success' ? <LatestSk status={status}/>: 
       view === "desktop" ?
         <LatestBlogs posts={posts}/>
         : 
-        <LatestCarousel posts={posts}/> : <Error message={404}/>
+        <LatestCarousel posts={posts}/>
       }
-
-      <OtherBlogs/>
+        <OtherBlogs/>
     </div>
   );
 };
