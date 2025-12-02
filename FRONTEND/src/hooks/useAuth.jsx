@@ -15,7 +15,7 @@ export const AuthProvider = ({children}) => {
         }
         setLoading(true)
 
-        axiosInit.get(`${import.meta.env.VITE_API_BASE}auth/user`, {
+        axiosInit.get(`${import.meta.env.VITE_API_BASE}/auth/user`, {
             headers: {
                 Authorization: `Bearer ${stored}`
             }
