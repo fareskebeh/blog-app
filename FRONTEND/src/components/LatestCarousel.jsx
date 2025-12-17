@@ -4,7 +4,6 @@ import {
   FaArrowLeft,
   FaArrowRight,
   FaCircle,
-  FaRegCircle,
 } from "react-icons/fa";
 import {motion as Motion} from "framer-motion"
 import {Link} from "react-router-dom"
@@ -49,12 +48,6 @@ const LatestCarousel = ({ posts = [] }) => {
           <div className="p-2 absolute flex flex-col gap-2 bottom-4 left-4">
           
           <div>
-        <p
-          className={`shadow-sm p-2 rounded-md inline-block
-        `}
-        >
-          {posts[page].genre}
-        </p>
           </div>
 
             <p className="font-bold text-2xl text-white">{posts[page].title}</p>
