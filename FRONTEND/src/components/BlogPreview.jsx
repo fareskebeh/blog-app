@@ -8,6 +8,8 @@ import Message from "../reusables/Message";
 import { useSavedPosts } from "../hooks/useSavedPosts";
 import AuthModal from "../reusables/AuthModal";
 import { AnimatePresence } from "framer-motion";
+import ParagraphSk from "../fallback/skeleton/BlogPreviewSk";
+import PreviewErr from "../fallback/error/PreviewErr";
 
 const BlogPreview = () => {
   const token = localStorage.getItem("token");
@@ -19,6 +21,7 @@ const BlogPreview = () => {
     message: "",
     status: undefined,
   });
+  const[postStatus,setPostStatus] = useState(undefined)
   const [liked, setLiked] = useState(false);
 
 
@@ -49,6 +52,7 @@ const BlogPreview = () => {
     window.scrollTo({
       top: 0,
     });
+    setPostStatus("loading")
     axiosInit
       .get(`post/${id}`, {
         headers: {
@@ -57,10 +61,12 @@ const BlogPreview = () => {
       })
       .then((res) => {
         if (res) {
+          setPostStatus("success")
           setPost(res.data.data);
         }
       })
       .catch((err) => {
+          setPostStatus("error")
         console.error(err)
       });
   }, [id]);
@@ -164,6 +170,10 @@ const BlogPreview = () => {
 };
 
   return (
+    
+      postStatus==="error" ?
+      <PreviewErr/>
+      :
     <div
       className={`p-4 pt-24 transition-colors duration-300
         `}
@@ -178,8 +188,8 @@ const BlogPreview = () => {
           className={`**:text-xl flex dark:text-neutral-500 text-neutral-700 flex-col gap-2
                 **:italic pl-2 mb-4`}
         >
-          <p>By: Fares Kebbeh &#8226; {post.time_required} min read</p>
-          <p>At: {post.date_created}</p>
+          <p className={postStatus!=="success" && "hidden"}>By: Fares Kebbeh &#8226; {post.time_required} min read</p>
+          <p className={postStatus!=="success" && "hidden"}>At: {post.date_created}</p>
         </div>
       </header>
 
@@ -197,19 +207,26 @@ const BlogPreview = () => {
         }
       </div>
 
+        
       <div>
-        <div className="py-4 text-lg prose dark:[&>hr]:border-neutral-900 *:transition-colors duration-150 dark:prose-invert">
-          <Markdown>{post.body}</Markdown>
-        </div>
+        { postStatus==="loading" ? 
+          <ParagraphSk status={postStatus}/>
+        :
+
+          <div className="py-4 text-lg prose dark:[&>hr]:border-neutral-900 *:transition-colors duration-150 dark:prose-invert">
+            <Markdown>{post.body}</Markdown>
+          </div>
+        }
         <div className="flex mb-4 items-center gap-2 p-2">
           <div className="flex  items-center gap-2">
             <button
               onClick={()=> likeOrUnlike(liked?"unlike":"like")}
-              className=" cursor-pointer "
+              className={`${postStatus !== "success" ? "dark:*:text-neutral-700 *:text-neutral-200 cursor-not-allowed" : "cursor-pointer"}`}
+              disabled={postStatus!=="success"}
             >
               <FaHeart className={` transition-all duration-150 hover:scale-105 active:scale-110 ${liked ? "text-rose-400" : "text-neutral-400"}`}size={28}/>
             </button>
-            <p className={`${liked ? "text-rose-400" : "text-neutral-400"} transition duration-150 text-xl`}>{likeCount}</p>
+            <p className={`${liked ? "text-rose-400" : "text-neutral-400"} ${postStatus==="success" ? "inline-block" : "hidden"} transition duration-150 text-xl`}>{likeCount}</p>
           </div>
           <p
             className={`
@@ -218,11 +235,12 @@ const BlogPreview = () => {
 
           <button
             onClick={() => saveOrUnsave(isSaved ? "unsave" : "save")}
-            className={`transition-colors duration-150 ${
-              isSaved ? "text-amber-400" : "text-neutral-400"
-            } cursor-pointer`}
+            className={`${postStatus !== "success" ? "dark:*:text-neutral-700 *:text-neutral-200 cursor-not-allowed" : "cursor-pointer"}`}
+            disabled={postStatus!=="success"}
           >
-            <FaBookmark size={28} />
+            <FaBookmark className={`transition-colors duration-150 ${
+              isSaved ? "text-amber-400" : "text-neutral-400"
+            }`} size={28} />
           </button>
         </div>
       </div>
@@ -234,7 +252,7 @@ const BlogPreview = () => {
       </AnimatePresence>
       <Message response={response} setResponse={setResponse} />
 
-      <CommentSection id={id} comments={post.comments} />
+      <CommentSection id={id} postStatus={postStatus} comments={post.comments} />
     </div>
   );
 };

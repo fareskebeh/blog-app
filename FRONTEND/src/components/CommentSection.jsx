@@ -5,8 +5,9 @@ import Message from "../reusables/Message";
 import { FaRegPaperPlane } from "react-icons/fa";
 import {useAuth} from "../hooks/useAuth"
 import { Link } from "react-router-dom";
+import CommentsSk from "../fallback/skeleton/CommentsSk";
 
-const CommentSection = ({ comments = [], id }) => {
+const CommentSection = ({ comments = [], id, postStatus }) => {
   const {user} = useAuth();
   const token = localStorage.getItem("token")
   const [currCom, setCurrCom] = useState({
@@ -64,7 +65,7 @@ const CommentSection = ({ comments = [], id }) => {
 
         <div className="overflow-y-hidden flex flex-col gap-4">
         
-          <p className="text-3xl transition duration-150 font-bold dark:text-white">Comments ({comments.length})</p>
+          <p className={`${postStatus!=="success" && "hidden"} text-3xl transition duration-150 font-bold dark:text-white`}>Comments ({comments.length})</p>
           
           <div className={`flex flex-1 flex-col **:transition duration-150 relative z-799`}>
             { !user &&
@@ -79,6 +80,7 @@ const CommentSection = ({ comments = [], id }) => {
               className={`pb-14 flex-1 md:h-full resize-none dark:bg-neutral-900 w-full bg-neutral-200 rounded-tr-3xl rounded-tl-3xl p-4 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none transition duration-150`}
               type="text"
               placeholder="Add a comment.."
+              disabled={postStatus!=="success"}
               onChange={(e) =>
                 setCurrCom({ ...currCom, content: e.target.value })
               }
@@ -87,6 +89,7 @@ const CommentSection = ({ comments = [], id }) => {
               <p className="ml-4 dark:text-neutral-700 text-neutral-500">{currCom.content.length}/500</p>
               
               <button
+                disabled={postStatus!=="success" || !currCom}
                 onClick={() => postComment()}
                 className={`transition ${!currCom?.content.trim() || response.status==="loading" || currCom?.content.trim().length > 500 ? "dark:opacity-60 opacity-20 cursor-not-allowed" : "hover:opacity-90 active:opacity-80 cursor-pointer"} duration-150 p-2 dark:bg-white text-white dark:text-black bg-black rounded-full`}
                 >
@@ -97,7 +100,13 @@ const CommentSection = ({ comments = [], id }) => {
         </div>
 
         <div className="h-full overflow-y-auto md:border dark:border-neutral-800 border-neutral-300 md:shadow-md md:bg-neutral-200 md:dark:bg-neutral-900  px-4 rounded-xl transition duration-150">
-          {comments.length > 0 ? (
+          
+          { 
+          postStatus==="loading"?
+            <CommentsSk/>
+          :
+          
+          comments.length > 0 ? (
             comments.map((comment, index) => (
               <div key={comment.id}>
                 <Comment
@@ -131,6 +140,7 @@ const CommentSection = ({ comments = [], id }) => {
               </div>
             </div>
           )}
+
         </div>
 
 
