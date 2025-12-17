@@ -77,7 +77,7 @@ const Home = () => {
       </Motion.div>
 
       { 
-      status!=='success' ? <LatestSk status={status}/>: 
+      status!=='success' ? <LatestSk cards={view === "mobile" ? 1 : 3} status={status}/>: 
       view === "desktop" ?
         <LatestBlogs posts={posts}/>
         : 

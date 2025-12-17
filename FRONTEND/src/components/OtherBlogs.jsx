@@ -1,57 +1,55 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import BlogTile from "./BlogTile";
 import axiosInit from "../services/axios-init";
 import { Link } from "react-router-dom";
-import Loading from "../fallback/Loading"
-import Error from "../fallback/Error"
+import OtherBlogsError from "../fallback/error/OtherBlogsError";
+import NotFound from "../fallback/error/NotFound";
+import Empty from "../fallback/empty/Empty";
+import OtherBlogsSk from "../fallback/skeleton/OtherBlogsSk";
 
 export function OtherBlogs() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const[status,setStatus]= useState('')
   const [posts, setPosts] = useState([]);
   const [searchQ, setSearchQ] = useState("");
 
   useEffect(() => {
-    setLoading(true);
+    setStatus('loading')
     axiosInit
       .get("/posts")
       .then((res) => {
         if (res) {
           setPosts(res.data.data);
-          setLoading(false);
+          setStatus('')
         }
       })
       .catch((err) => {
         console.error(err);
-        setError(true);
+        setStatus('error')
       });
   }, []);
 
   const search = (query) => {
-    setLoading(true);
+    setStatus('loading')
     if (query.trim() === "") {
-      setLoading(false)
+      setStatus('')
       return;
     } else {
       axiosInit
-        .get(`search?q=${query.trim()}`)
+        .get(`/search?q=${query.trim()}`)
         .then((res) => {
           setPosts(res.data.data);
-          setLoading(false);
+          setStatus('')
         })
-        .catch((err) => {
-          console.error(err);
-          console.error(error)
+        .catch(() => {
           setPosts([]);
-          setError(true);
-          setLoading(false)
+          setStatus('404')
         });
     }
   };
 
   return (
-    <div>
+    <div className="py-4">
       <div
         className={`**:transition duration-150
         flex flex-col items-center pb-10`}
@@ -85,27 +83,18 @@ export function OtherBlogs() {
 
 
       <div className={`box-border`}>
-        { loading ? <Loading/> :
-        posts.length !== 0 ? (
-          posts.map((post) => (
-            <Link to={`/post/${post.id}`} key={post.id}>
-              <BlogTile
-                id={post.id}
-                title={post.title}
-                image={post.image}
-                genre={post.genre}
-                date_created={post.date_created}
-                time_required={post.time_required}
-                likes={post.likes}
-                comment_count={post.comment_count}
-              />
-    
-            </Link>
-          ))
-        ) : (
-          <Error message={404}/>        
+        { status==='loading' ? <OtherBlogsSk/> : 
+          status==='error' ? <OtherBlogsError/> :
+          status==='404' ? <NotFound/> :
+          posts.length ===0 ? <Empty/> :
+          (
+            posts.map((p,i)=> (
+              <Link key={i} to={`/post/${p.id}`} className="contents">
+                <BlogTile title={p.title} time_required={p.time_required} id={p.id} genre={p.genre} image={p.image} date_created={p.date_created}/>
+              </Link>
+            ))
           )
-          }
+        }
       </div>
 
 
