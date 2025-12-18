@@ -25,7 +25,7 @@ const Login = () => {
   ]
 
   return (
-    <div className="h-dvh **:transition flex justify-center items-center transition duration-150 bg-neutral-100 dark:bg-neutral-950 pt-20">
+    <div className="h-dvh **:transition-colors flex justify-center items-center transition-colors duration-150 bg-neutral-100 dark:bg-neutral-950 pt-20">
         <div className="flex flex-col gap-8 flex-[0.9] sm:flex-[0.6] md:flex-[0.4]">
             <p className="text-2xl sm:text-3xl w-[80%] md:text-4xl dark:text-white font-black">Log In to receive my latest blogs</p>
 
@@ -43,7 +43,7 @@ const Login = () => {
             </div>
 
             <div className="flex items-center justify-center dark:text-neutral-400 text-neutral-600">
-                <Link to="/login-with-email" className="flex items-center gap-2 cursor-pointer transition hover:opacity-90 duration-150"><HiOutlineMail/>Continue with E-mail instead</Link>
+                <Link to="/login-with-email" className="flex items-center gap-2 cursor-pointer transition-colors hover:opacity-90 duration-150"><HiOutlineMail/>Continue with E-mail instead</Link>
             </div>
         </div>
         

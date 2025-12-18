@@ -65,9 +65,9 @@ const CommentSection = ({ comments = [], id, postStatus }) => {
 
         <div className="overflow-y-hidden flex flex-col gap-4">
         
-          <p className={`${postStatus!=="success" && "hidden"} text-3xl transition duration-150 font-bold dark:text-white`}>Comments ({comments.length})</p>
+          <p className={`${postStatus!=="success" && "hidden"} text-3xl transition-colors duration-150 font-bold dark:text-white`}>Comments ({comments.length})</p>
           
-          <div className={`flex flex-1 flex-col **:transition duration-150 relative z-799`}>
+          <div className={`flex flex-1 flex-col **:transition-colors duration-150 relative z-799`}>
             { !user &&
               <div className="absolute rounded-3xl bg-white dark:bg-neutral-950 z-799 inset-0 flex items-center justify-center">
                 <div className="flex flex-col items-center gap-2">
@@ -77,7 +77,7 @@ const CommentSection = ({ comments = [], id, postStatus }) => {
               </div>
             }
             <textarea
-              className={`pb-14 flex-1 md:h-full resize-none dark:bg-neutral-900 w-full bg-neutral-200 rounded-tr-3xl rounded-tl-3xl p-4 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none transition duration-150`}
+              className={`pb-14 flex-1 md:h-full resize-none dark:bg-neutral-900 w-full bg-neutral-200 rounded-tr-3xl rounded-tl-3xl p-4 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none transition-colors duration-150`}
               type="text"
               placeholder="Add a comment.."
               disabled={postStatus!=="success"}
@@ -85,13 +85,13 @@ const CommentSection = ({ comments = [], id, postStatus }) => {
                 setCurrCom({ ...currCom, content: e.target.value })
               }
             />
-            <div className="transition duration-150 rounded-bl-3xl rounded-br-3xl dark:bg-neutral-900 bg-neutral-200 bottom-0 left-0 right-0 p-2 flex justify-between items-center">
+            <div className="transition-colors duration-150 rounded-bl-3xl rounded-br-3xl dark:bg-neutral-900 bg-neutral-200 bottom-0 left-0 right-0 p-2 flex justify-between items-center">
               <p className="ml-4 dark:text-neutral-700 text-neutral-500">{currCom.content.length}/500</p>
               
               <button
                 disabled={postStatus!=="success" || !currCom}
                 onClick={() => postComment()}
-                className={`transition ${!currCom?.content.trim() || response.status==="loading" || currCom?.content.trim().length > 500 ? "dark:opacity-60 opacity-20 cursor-not-allowed" : "hover:opacity-90 active:opacity-80 cursor-pointer"} duration-150 p-2 dark:bg-white text-white dark:text-black bg-black rounded-full`}
+                className={`transition-colors ${!currCom?.content.trim() || response.status==="loading" || currCom?.content.trim().length > 500 ? "dark:opacity-60 opacity-20 cursor-not-allowed" : "hover:opacity-90 active:opacity-80 cursor-pointer"} duration-150 p-2 dark:bg-white text-white dark:text-black bg-black rounded-full`}
                 >
                 <FaRegPaperPlane size={20}/>
               </button>
@@ -99,7 +99,7 @@ const CommentSection = ({ comments = [], id, postStatus }) => {
           </div>
         </div>
 
-        <div className="h-full overflow-y-auto md:border dark:border-neutral-800 border-neutral-300 md:shadow-md md:bg-neutral-200 md:dark:bg-neutral-900  px-4 rounded-xl transition duration-150">
+        <div className="h-full overflow-y-auto md:border dark:border-neutral-800 border-neutral-300 md:shadow-md md:bg-neutral-200 md:dark:bg-neutral-900  px-4 rounded-xl transition-colors duration-150">
           
           { 
           postStatus==="loading"?
@@ -118,7 +118,7 @@ const CommentSection = ({ comments = [], id, postStatus }) => {
                 />
                 {index !== comments.length - 1 && (
                   <hr
-                    className={`md:dark:border-neutral-800 dark:border-neutral-900 transition duration-150 md:border-neutral-300 border-neutral-200`}
+                    className={`md:dark:border-neutral-800 dark:border-neutral-900 transition-colors duration-150 md:border-neutral-300 border-neutral-200`}
                   />
                 )}
               </div>

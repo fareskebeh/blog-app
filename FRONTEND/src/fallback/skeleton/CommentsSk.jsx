@@ -1,7 +1,7 @@
 
 const CommentsSk = () => {
   return (
-    <div className='py-4 relative flex **:transition duration-150 overflow-y-hidden flex-col gap-4'>
+    <div className='py-4 relative flex **:transition-colors duration-150 overflow-y-hidden flex-col gap-4'>
         {
             Array.from({length:3}, (_,i)=> (
                 <div key={i} className='h-20 rounded-xl dark:bg-neutral-800 bg-neutral-300 animate-pulse'>

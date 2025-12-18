@@ -1,7 +1,7 @@
 
 const OtherBlogsSk = () => {
   return (
-    <div className=" **:transition relative duration-150 py-4">
+    <div className=" **:transition-colors relative duration-150 py-4">
         <div className="flex flex-col gap-2 *:animate-pulse">
         {
             Array.from({length: 2} ,(_,i)=> (

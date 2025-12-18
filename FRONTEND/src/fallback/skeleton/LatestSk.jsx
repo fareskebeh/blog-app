@@ -2,10 +2,10 @@ import { MdErrorOutline, MdOutlineQuestionMark } from "react-icons/md"
 
 const LatestSk = ({status, cards}) => {
   return(
-    <div className={`${cards===3 ? "h-90" : "h-110"} **:transition duration-150  relative flex justify-between gap-8 p-8 *:flex-1`}>
+    <div className={`${cards===3 ? "h-90" : "h-110"} **:transition-colors duration-150  relative flex justify-between gap-8 p-8 *:flex-1`}>
       {
         Array.from({length:cards}, (_,i)=> (
-          <div className={`transition duration-150 rounded-4xl bg-neutral-300 dark:bg-neutral-800 ${status==='loading' && 'animate-pulse'}`} key={i}>
+          <div className={`transition-colors duration-150 rounded-4xl bg-neutral-300 dark:bg-neutral-800 ${status==='loading' && 'animate-pulse'}`} key={i}>
 
           </div>
         ))

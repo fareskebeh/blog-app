@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 const Verify = () => {
   return (
-    <div className='h-dvh pt-20 flex flex-col **:transition duration-150 justify-center items-center'>
+    <div className='h-dvh pt-20 flex flex-col **:transition-colors duration-150 justify-center items-center'>
         <div className="flex items-center mt-auto gap-12 flex-col md:flex-row">
             <FaRegPaperPlane size={80} className="dark:text-neutral-600 text-neutral-400"/>
 

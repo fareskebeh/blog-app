@@ -74,7 +74,7 @@ const EmailLogin = () => {
 
   const [pwVis, setPwVis] = useState(false)
   return (
-    <div className='pt-20 h-dvh flex items-center justify-center dark:bg-neutral-950 bg-neutral-100 transition **:transition duration-150'>
+    <div className='pt-20 h-dvh flex items-center justify-center dark:bg-neutral-950 bg-neutral-100 transition-colors **:transition-colors duration-150'>
       
       <div className='flex flex-col gap-12'>
         <p className='text-3xl dark:text-white font-black'>Use your E-mail to log in</p>
@@ -94,7 +94,7 @@ const EmailLogin = () => {
           <div className="relative">
             <HiOutlineLockClosed size={20} className="text-neutral-500 dark:text-neutral-600 absolute top-2.5 left-2"/>
             <input onChange={(e)=> setCredentials({...credentials, password: e.target.value})} value={credentials.password} className='dark:bg-neutral-900 w-full pl-9 bg-neutral-200 rounded-xl p-2 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none' placeholder='Password' type={pwVis ? "text" : "password"} />
-            <button onClick={()=> setPwVis(!pwVis) } className={`${pwVis ? "text-neutral-700 dark:text-neutral-500" : "dark:text-neutral-600 text-neutral-500"} transition  duration-150 absolute cursor-pointer top-2.5 right-3`}>
+            <button onClick={()=> setPwVis(!pwVis) } className={`${pwVis ? "text-neutral-700 dark:text-neutral-500" : "dark:text-neutral-600 text-neutral-500"} transition-colors  duration-150 absolute cursor-pointer top-2.5 right-3`}>
               {pwVis ? <HiOutlineEye size={20}/> : <HiOutlineEyeOff size={20}/>}
             </button>
           </div>
@@ -104,7 +104,7 @@ const EmailLogin = () => {
             <Toggle checked={save} onChange={setSave}/>
           </div>
           <button onClick={submitForm} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Log In" }</button>
-          <p className={`h-4 ${response.status==="error" ? "text-red-500" : "text-green-600"} ${response.message ? "opacity-100" : "opacity-0"} transition duration-150`}>{response.message}</p>
+          <p className={`h-4 ${response.status==="error" ? "text-red-500" : "text-green-600"} ${response.message ? "opacity-100" : "opacity-0"} transition-colors duration-150`}>{response.message}</p>
         </div>
 
         <Link to="/register" className="flex gap-2 items-center justify-center dark:text-neutral-500 text-neutral-700"><HiOutlineUser/>New User? Register instead</Link>

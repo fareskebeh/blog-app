@@ -20,7 +20,7 @@ const Dropdown = ({data, defaultVal}) => {
     },[])
   
     return (
-    <div ref={dropRef} onClick={()=>setOpen(!open)} className='**:transition duration-150 dark:bg-neutral-900 bg-neutral-100 cursor-pointer flex w-30 justify-between items-center p-2 rounded-xl text-base relative'>
+    <div ref={dropRef} onClick={()=>setOpen(!open)} className='**:transition-colors duration-150 dark:bg-neutral-900 bg-neutral-100 cursor-pointer flex w-30 justify-between items-center p-2 rounded-xl text-base relative'>
         <p className='select-none'>{newVal}</p>
         <HiChevronDown className={`${open ? "transform:rotate-180" : ""}`}/>
         <AnimatePresence>

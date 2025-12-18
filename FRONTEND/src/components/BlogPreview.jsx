@@ -57,14 +57,13 @@ const BlogPreview = () => {
     setPostStatus("loading")
     axiosInit
       .get(`post/${id}`, {
-        headers: {
-          headers
-        }
+        headers: headers
       })
       .then((res) => {
         if (res) {
           setPostStatus("success")
           setPost(res.data.data);
+          setLiked(post.liked)
         }
       })
       .catch((err) => {
@@ -94,14 +93,12 @@ const BlogPreview = () => {
     });
     axiosInit
       .post(
-        action === "save" ? "save" : "unsave",
+        action === "save" ? "/save" : "/unsave",
         {
           id: id,
         },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: headers
         }
       )
       .then(() => {
@@ -136,11 +133,10 @@ const BlogPreview = () => {
     shown: true,
   });
   
-  setLiked(action === "like");
-  
+
   axiosInit
     .post(
-      "like",
+      "/like",
       { id: id },
       {
         headers: {
@@ -149,14 +145,13 @@ const BlogPreview = () => {
       }
     )
     .then(() => {
+      setLiked(action === "like");
       setResponse({
         shown: true,
         message: action === "like" ? "Post Liked!" : "Post Unliked!",
         status: "success",
       });
-      setLikeCount(prev=> {
-        return action==="like" ? prev +1 : prev -1;
-      })
+      setLikeCount(prev => action === "like" ? prev + 1 : prev - 1);
     })
     .catch(() => {
       setLiked(liked);
@@ -226,9 +221,9 @@ const BlogPreview = () => {
               className={`${postStatus !== "success" ? "dark:*:text-neutral-700 *:text-neutral-200 cursor-not-allowed" : "cursor-pointer"}`}
               disabled={postStatus!=="success"}
             >
-              <FaHeart className={` transition-all duration-150 hover:scale-105 active:scale-110 ${liked ? "text-rose-400" : "text-neutral-400"}`}size={28}/>
+              <FaHeart className={` transition-all duration-150 hover:scale-105 active:scale-110 ${liked ? "text-rose-400" : "dark:text-neutral-400 text-neutral-500"}`}size={28}/>
             </button>
-            <p className={`${liked ? "text-rose-400" : "text-neutral-400"} ${postStatus==="success" ? "inline-block" : "hidden"} transition duration-150 text-xl`}>{likeCount}</p>
+            <p className={`${liked ? "text-rose-400" : "dark:text-neutral-400 text-neutral-500"} ${postStatus==="success" ? "inline-block" : "hidden"} transition-colors duration-150 text-xl`}>{likeCount}</p>
           </div>
           <p
             className={`
@@ -241,7 +236,7 @@ const BlogPreview = () => {
             disabled={postStatus!=="success"}
           >
             <FaBookmark className={`transition-colors duration-150 ${
-              isSaved ? "text-amber-400" : "text-neutral-400"
+              isSaved ? "text-amber-400" : "dark:text-neutral-400 text-neutral-500"
             }`} size={28} />
           </button>
         </div>

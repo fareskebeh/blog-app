@@ -4,7 +4,7 @@ const API_BASE = import.meta.env.VITE_API_BASE;
 
 const LatestCard = ({date_created, image, time_required, title}) => {
   return (
-    <div className="**:transition hover:-translate-y-2 duration-150 flex-1 rounded-4xl bg-white shadow-lg dark:bg-neutral-900">
+    <div className="**:transition-colors hover:-translate-y-2 duration-150 flex-1 rounded-4xl bg-white shadow-lg dark:bg-neutral-900">
       <div className="h-full flex flex-col p-4 gap-4">
         {
           image ?

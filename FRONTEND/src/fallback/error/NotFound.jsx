@@ -2,7 +2,7 @@ import {TbError404Off} from "react-icons/tb"
 
 const NotFound = () => {
   return (
-    <div className="relative **:transition duration-150 py-4">
+    <div className="relative **:transition-colors duration-150 py-4">
         <div className="flex flex-col gap-2">
         {
             Array.from({length: 2} ,(_,i)=> (
@@ -11,7 +11,7 @@ const NotFound = () => {
         }
         </div>
         <div className="flex items-center justify-center absolute inset-0 bg-linear-to-t dark:from-neutral-950 dark:via-neutral-950/60 from-white rounded-4xl">
-            <div className="w-full gap-4 h-40 dark:text-neutral-500 text-neutral-500 **:transition duration-150 rounded-3xl flex flex-col items-center justify-center">
+            <div className="w-full gap-4 h-40 dark:text-neutral-500 text-neutral-500 **:transition-colors duration-150 rounded-3xl flex flex-col items-center justify-center">
                 <TbError404Off color="#ff4040" size={48}/>
                 <p>Could not find post, Try again with different keywords</p>
             </div>

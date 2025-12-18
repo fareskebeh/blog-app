@@ -55,7 +55,7 @@ const Home = () => {
 
   return (
     <div
-      className={`pt-20 px-4 min-h-dvh transition duration-150
+      className={`pt-20 px-4 min-h-dvh transition-colors duration-150
     `}
     >
       <Motion.div

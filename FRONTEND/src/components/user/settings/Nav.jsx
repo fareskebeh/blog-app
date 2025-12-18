@@ -24,7 +24,7 @@ const Nav = () => {
     ]
    
     return (
-    <div className='flex flex-col gap-2 *:p-2 **:transition duration-150'>
+    <div className='flex flex-col gap-2 *:p-2 **:transition-colors duration-150'>
         {
             settings.map((s,index)=> (
                 <Link key={index} className={`${pathname===`/settings/${s.path}` ? "dark:bg-white bg-black text-white dark:text-black" : "text-neutral-600 dark:text-neutral-400"} rounded-xl flex justify-between items-center font-medium text-lg`} to={s.path}>

@@ -10,7 +10,7 @@ export default function ParagraphSk ({status}) {
     <div className='flex flex-col gap-4 my-8'>
       {
         Array.from({length:6}, (_,i)=> (
-          <div className={`transition duration-150 h-10 ${randWidth()} rounded-4xl bg-neutral-300 dark:bg-neutral-800 ${status==='loading' && 'animate-pulse'}`} key={i}>
+          <div className={`transition-colors duration-150 h-10 ${randWidth()} rounded-4xl bg-neutral-300 dark:bg-neutral-800 ${status==='loading' && 'animate-pulse'}`} key={i}>
 
           </div>
         ))

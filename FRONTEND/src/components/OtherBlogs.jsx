@@ -51,7 +51,7 @@ export function OtherBlogs() {
   return (
     <div className="py-4">
       <div
-        className={`**:transition duration-150
+        className={`**:transition-colors duration-150
         flex flex-col items-center pb-10`}
       >
         <p className={`ml-2 dark:text-white my-4 pl-1 text-2xl font-extralight`}>Other Blogs</p>

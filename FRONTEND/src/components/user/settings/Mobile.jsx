@@ -3,7 +3,7 @@ import Nav from "./Nav"
 
 const Mobile = () => {
   return (
-    <div className="min-h-dvh pt-24 px-4  flex flex-col gap-4 **:transition duration-150">
+    <div className="min-h-dvh pt-24 px-4  flex flex-col gap-4 **:transition-colors duration-150">
         <p className="text-black dark:text-white text-2xl font-bold">Settings</p>
         <div>
             <Nav/>

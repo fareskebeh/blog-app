@@ -42,7 +42,7 @@ const SavedBlogs = () => {
   },[])
 
   return (
-    <div className='**:transition h-full duration-150 py-4 flex flex-1 flex-col gap-4'>
+    <div className='*:transition h-full duration-150 py-4 flex flex-1 flex-col gap-4'>
       <div className='space-y-2'>
         <p className='dark:text-white text-xl sm:text-2xl md:text-3xl font-bold'>Saved Blogs</p>
         <p className='dark:text-neutral-700 text-neutral-700 text-base sm:text-xl'>Below is a list of blogs you have saved</p>
