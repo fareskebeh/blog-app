@@ -42,6 +42,8 @@ const BlogPreview = () => {
     setLikeCount(post?.likes?.length ?? 0)
   },[post])
 
+  const headers = token && token !== "null" ? {Authorization: `Bearer ${token}`} : {}
+
   useEffect(()=> {
     if(token) {
       setLiked(post?.liked)
@@ -56,7 +58,7 @@ const BlogPreview = () => {
     axiosInit
       .get(`post/${id}`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          headers
         }
       })
       .then((res) => {
@@ -67,7 +69,7 @@ const BlogPreview = () => {
       })
       .catch((err) => {
           setPostStatus("error")
-        console.error(err)
+          console.error(err.message)
       });
   }, [id]);
 
@@ -188,8 +190,8 @@ const BlogPreview = () => {
           className={`**:text-xl flex dark:text-neutral-500 text-neutral-700 flex-col gap-2
                 **:italic pl-2 mb-4`}
         >
-          <p className={postStatus!=="success" && "hidden"}>By: Fares Kebbeh &#8226; {post.time_required} min read</p>
-          <p className={postStatus!=="success" && "hidden"}>At: {post.date_created}</p>
+          <p className={postStatus!=="success" ? "hidden" : undefined}>By: Fares Kebbeh &#8226; {post.time_required} min read</p>
+          <p className={postStatus!=="success" ? "hidden" : undefined}>At: {post.date_created}</p>
         </div>
       </header>
 
