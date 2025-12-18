@@ -75,7 +75,7 @@ const [user,setUser] = useState(null)
       message:""
     })
 
-    if(!credentials.email||!credentials.password) {
+    if(!credentials.email||!credentials.password||!credentials.username) {
       setResponse({
         status: "error",
         message: "Required fields missing"
@@ -144,7 +144,7 @@ const [user,setUser] = useState(null)
             }
         })
         .then(res=>setUser(res.data))
-        .catch(err=> console.error(err))
+        .catch(err=> setResponse({status:"error", message: err?.message}))
         .finally(()=> {
             setResponse({
                 status: "",

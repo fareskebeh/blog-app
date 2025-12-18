@@ -45,7 +45,7 @@ const EmailLogin = () => {
             <span className="text-neutral-700 text-nowrap dark:text-neutral-500">Remember me</span> 
             <Toggle checked={credentials.save} onChange={(e)=>setCredentials({...credentials, save: e.target.checked})}/>
           </div>
-          <button onClick={(credentials)=> login(credentials)} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Log In" }</button>
+          <button onClick={()=> login(credentials)} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Log In" }</button>
           <p className={`h-4 ${response.status==="error" ? "text-red-500" : "text-green-600"} ${response.message ? "opacity-100" : "opacity-0"} transition-colors duration-150`}>{response.message}</p>
         </div>
 
