@@ -139,9 +139,7 @@ const BlogPreview = () => {
       "/like",
       { id: id },
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: headers
       }
     )
     .then(() => {
