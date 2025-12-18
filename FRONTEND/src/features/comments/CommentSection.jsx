@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Comment from "./Comment";
-import axiosInit from "../services/axios-init";
-import Message from "../reusables/Message";
+import axiosInit from "@/services/axios-init";
+import Message from "@/components/ui/Message";
 import { FaRegPaperPlane } from "react-icons/fa";
-import {useAuth} from "../hooks/useAuth"
+import {useAuth} from "@/features/auth/hooks/useAuth"
 import { Link } from "react-router-dom";
-import CommentsSk from "../fallback/skeleton/CommentsSk";
+import CommentsSk from "@/components/ui/CommentsSk";
 
 const CommentSection = ({ comments = [], id, postStatus }) => {
   const {user} = useAuth();

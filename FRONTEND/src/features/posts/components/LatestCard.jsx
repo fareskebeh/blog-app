@@ -1,4 +1,4 @@
-import ImgLoadErr from "../fallback/error/ImgLoadErr";
+import ImgLoadErr from "@/components/ui/ImgLoadErr";
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 

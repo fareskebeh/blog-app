@@ -1,11 +1,10 @@
 import { HiOutlineUser, HiOutlineAtSymbol, HiOutlineBookOpen, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
-import Toggle from "../reusables/Toggle"
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import axiosInit from "../services/axios-init"
+import { Link } from "react-router-dom"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 
 const Register = () => {
-  const navigate = useNavigate()
+  const {register, response} = useAuth()
   const [pwVis, setPwVis] = useState(false)
   const[credentials,setCredentials] = useState({
     username: "",
@@ -13,66 +12,7 @@ const Register = () => {
     password1:"",
     password2:""
   })
-  const[response,setResponse] = useState({
-    status: undefined,
-    message: "",
-  })
-  const validator = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-
-  const submitForm = (e)=> {
-    e.preventDefault()
-    setResponse({
-      status: "loading",
-      message: null
-    })
-
-    if(!credentials.email||!credentials.password1||!credentials.password2||!credentials.username) {
-      setResponse({
-        status: "error",
-        message: "Required fields missing"
-      })
-      return;
-    }
-    if(!validator.test(credentials.email)) {
-      setResponse({
-        status: "error",
-        message: "Invalid email format"
-      })
-      return;
-    }
-    if(credentials.password1.length < 8) {
-      setResponse({
-        status: "error",
-        message: "Password must be at least 8 characters"
-      })
-      return;
-    }
-    if(credentials.password1!==credentials.password2) {
-      setResponse({
-        status: "error",
-        message: "Passwords do not match"
-      })
-      return;
-    }
-
-    axiosInit.post(`/auth/registration/`, credentials, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then((res)=> {
-      if(res.status===201) {
-        navigate("/verify")
-      }
-    })
-    .catch(err=>{
-      setResponse({
-        status: "error",
-        message: err.data
-      })
-    })
-
-  }
+  
 
   return (
     <div className='pt-20 h-dvh flex items-center justify-center dark:bg-neutral-950 bg-neutral-100 transition-colors **:transition-colors duration-150'>
@@ -105,7 +45,7 @@ const Register = () => {
             <input onChange={(e)=> setCredentials({...credentials, password2:e.target.value})} value={credentials.password2} className='dark:bg-neutral-900 w-full pl-9 bg-neutral-200 rounded-xl p-2 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-600 outline-none' placeholder='Confirm Password' type={pwVis ? "text" : "password"} />
           </div>
                 
-          <button onClick={submitForm} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Register" }</button>
+          <button onClick={(credentials)=> register(credentials)} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Register" }</button>
           <p className={`h-4 ${response.status==="error" ? "text-red-500" : "text-green-600"} ${response.message ? "opacity-100" : "opacity-0"} transition-colors duration-150`}>{response.message}</p>
         </div>
 

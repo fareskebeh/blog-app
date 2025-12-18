@@ -1,76 +1,18 @@
 import { HiOutlineUser, HiOutlineAtSymbol, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
-import Toggle from "../reusables/Toggle"
+import Toggle from "@/components/ui/Toggle"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import axiosInit from "../services/axios-init"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 
 const EmailLogin = () => {
+  const {login, response} = useAuth()
   const[credentials,setCredentials] = useState({
     username: "",
     email:"",
     password:"",
+    save: undefined
   })
-  const[save,setSave]=useState(false)
-  const[response,setResponse] = useState({
-    status: undefined,
-    message: "",
-  })
-  const validator = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-
-  const submitForm = ()=> {
-    setResponse({
-      status: "loading",
-      message:""
-    })
-
-    if(!credentials.email||!credentials.password) {
-      setResponse({
-        status: "error",
-        message: "Required fields missing"
-      })
-      return;
-    }
-    if(!validator.test(credentials.email)) {
-      setResponse({
-        status: "error",
-        message: "Invalid email format"
-      })
-      return;
-    }
-    if(credentials.password.length < 8) {
-      setResponse({
-        status: "error",
-        message: "Password must be at least 8 characters"
-      })
-      return
-    }
-    axiosInit.post(`/auth/login`, credentials, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(res=> {
-      
-      if(res) {
-        if(save) {
-         // persist token 
-        }
-        else {
-          localStorage.setItem("token", res.data.access)
-        }
-
-        if(res.status===200) {
-          window.location.href = "/"
-        }
-      }
-    })
-    .catch(()=>{
-      setResponse({
-        status: "error",
-      })
-    })
-
-  }
+  
 
   const [pwVis, setPwVis] = useState(false)
   return (
@@ -101,9 +43,9 @@ const EmailLogin = () => {
           
           <div className="flex gap-2 my-2 items-center">
             <span className="text-neutral-700 text-nowrap dark:text-neutral-500">Remember me</span> 
-            <Toggle checked={save} onChange={setSave}/>
+            <Toggle checked={credentials.save} onChange={(e)=>setCredentials({...credentials, save: e.target.checked})}/>
           </div>
-          <button onClick={submitForm} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Log In" }</button>
+          <button onClick={(credentials)=> login(credentials)} disabled={response.status==="loading"} className={` p-2 dark:text-black bg-black dark:bg-white text-white rounded-xl cursor-pointer flex items-center justify-center hover:opacity-90 disabled:opacity-80 disabled:cursor-not-allowed`}>{response.status==="loading" ? <div className="loader-2 w-5 my-1"/> : "Log In" }</button>
           <p className={`h-4 ${response.status==="error" ? "text-red-500" : "text-green-600"} ${response.message ? "opacity-100" : "opacity-0"} transition-colors duration-150`}>{response.message}</p>
         </div>
 

@@ -1,4 +1,4 @@
-import { useScreenWidth } from "../../../hooks/useScreenWidth";
+import { useScreenWidth } from "@/hooks/useScreenWidth";
 import Desktop from "./Desktop";
 import Mobile from "./Mobile";
 

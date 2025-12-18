@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import axiosInit from '../../services/axios-init'
+import axiosInit from '@/services/axios-init'
 import {FiRefreshCw, FiBookmark} from "react-icons/fi"
-import BlogTile from "../BlogTile"
+import BlogTile from "@/features/posts/components/BlogTile"
 import {Link} from "react-router-dom"
 
 const SavedBlogs = () => {

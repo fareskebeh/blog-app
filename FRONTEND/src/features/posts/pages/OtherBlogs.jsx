@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import BlogTile from "./BlogTile";
-import axiosInit from "../services/axios-init";
+import BlogTile from "@/features/posts/components/BlogTile";
+import axiosInit from "@/services/axios-init";
 import { Link } from "react-router-dom";
-import OtherBlogsError from "../fallback/error/OtherBlogsError";
-import NotFound from "../fallback/error/NotFound";
-import Empty from "../fallback/empty/Empty";
-import OtherBlogsSk from "../fallback/skeleton/OtherBlogsSk";
+import OtherBlogsError from "@/components/ui/OtherBlogsError";
+import NotFound from "@/components/ui/NotFound";
+import Empty from "@/components/ui/Empty";
+import OtherBlogsSk from "@/components/ui/OtherBlogsSk";
 
 export function OtherBlogs() {
   const[status,setStatus]= useState('')

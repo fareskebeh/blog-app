@@ -1,26 +1,25 @@
-import Home from "./components/Home";
-import {BrowserRouter as Router, Routes, Route, Outlet, Navigate} from "react-router-dom"
-import BlogPreview from "./components/BlogPreview.jsx"
-import Nav from "./components/navigation/Nav.jsx";
-import { useAuth } from "./hooks/useAuth.jsx";
-import Login from "./authPages/Login.jsx";
-import EmailLogin from "./authPages/EmailLogin.jsx";
-import Register from "./authPages/Register.jsx";
-import Verify from "./authPages/Verify.jsx";
-import Me from "./components/user/Me.jsx";
-import Settings from "./components/user/settings/Settings.jsx";
-import { useSavedPosts } from "./hooks/useSavedPosts.jsx";
-import Account from "./components/user/settings/Account.jsx";
-import Preferences from "./components/user/settings/Preferences.jsx"
-import Edit from "./components/user/settings/Edit.jsx"
-import Protected from "./router/Protected.jsx";
+import Home from "@/features/posts/pages/Home";
+import { Routes, Route, Navigate} from "react-router-dom"
+import BlogPreview from "@/features/posts/pages/BlogPreview"
+import Nav from "@/components/layout/Nav";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import Login from "@/features/auth/pages/Login";
+import EmailLogin from "@/features/auth/pages/EmailLogin";
+import Register from "@/features/auth/pages/Register";
+import Verify from "@/features/auth/pages/Verify";
+import Me from "@/features/user/Me";
+import Settings from "@/features/user/settings/Settings";
+import { useSavedPosts } from "@/features/posts/hooks/useSavedPosts";
+import Account from "@/features/user/settings/Account";
+import Preferences from "@/features/user/settings/Preferences"
+import Edit from "@/features/user/settings/Edit"
+import Protected from "@/components/routing/Protected";
 
 const App = () => {
   const {user} = useAuth()
   const posts = useSavedPosts()
 
   return (
-    <Router>
       <div className="bg-neutral-100 dark:bg-neutral-950 transition-colors duration-150">
         <Nav user={user}/>
         <Routes>
@@ -41,7 +40,6 @@ const App = () => {
         <Route path="/post/:id" element={<BlogPreview/>} />
       </Routes>
       </div>
-    </Router>
 
   );
 };

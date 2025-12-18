@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import axiosInit from '../../services/axios-init'
-import Avatar from "../../assets/img/avatar.png"
+import axiosInit from '@/services/axios-init'
+import Avatar from "@/assets/img/avatar.png"
 import SavedBlogs from './SavedBlogs'
 
 const Me = ({user}) => {

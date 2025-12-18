@@ -1,13 +1,10 @@
 import { OtherBlogs } from "./OtherBlogs";
 import React, { useState, useEffect } from "react";
-import axiosInit from "../services/axios-init.js";
+import axiosInit from "@/services/axios-init.js";
 import { motion as Motion } from "framer-motion";
 import LatestBlogs from "./LatestBlogs.jsx";
 import LatestCarousel from "./LatestCarousel.jsx";
-import Error from "../fallback/Error";
-import PostLoadError from "../fallback/error/PostLoadError.jsx"
-import OtherBlogsError from "../fallback/error/OtherBlogsError.jsx";
-import LatestSk from "../fallback/skeleton/LatestSk.jsx";
+import LatestSk from "@/components/ui/LatestSk.jsx";
 
 const Home = () => {
 

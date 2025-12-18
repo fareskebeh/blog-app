@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axiosInit from "../services/axios-init";
+import axiosInit from "@/services/axios-init";
 
 export const useSavedPosts = () => {
   const token = localStorage.getItem("token");

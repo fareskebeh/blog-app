@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import {motion as Motion} from "framer-motion"
 import {MdOutlineFileUpload} from "react-icons/md"
 import { LuTrash2 } from "react-icons/lu";
-import axiosInit from "../../../services/axios-init"
+import axiosInit from "@/services/axios-init"
 
 const Edit = () => {
   const [profileData,setProfileData] = useState(null)

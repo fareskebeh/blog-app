@@ -1,6 +1,6 @@
 import {motion as Motion} from "framer-motion"
-import Dropdown from "../../../reusables/Dropdown";
-import { languages } from "../../../utils/languages";
+import Dropdown from "@/components/ui/Dropdown";
+import { languages } from "@/utils/languages";
 const Preferences = () => {
   
 

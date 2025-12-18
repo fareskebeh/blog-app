@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axiosInit from "../services/axios-init";
-import CommentSection from "./CommentSection";
+import CommentSection from "@/features/comments/CommentSection";
 import { FaHeart, FaBookmark } from "react-icons/fa";
 import Markdown from "react-markdown";
-import Message from "../reusables/Message";
-import { useSavedPosts } from "../hooks/useSavedPosts";
-import AuthModal from "../reusables/AuthModal";
+import Message from "@/components/ui/Message";
+import { useSavedPosts } from "@/features/posts/hooks/useSavedPosts";
+import AuthModal from "@/components/ui/AuthModal";
 import { AnimatePresence } from "framer-motion";
-import ParagraphSk from "../fallback/skeleton/BlogPreviewSk";
-import PreviewErr from "../fallback/error/PreviewErr";
+import ParagraphSk from "@/components/ui/BlogPreviewSk";
+import PreviewErr from "@/components/ui/PreviewErr";
+import axiosInit from "@/services/axios-init";
 
 const BlogPreview = () => {
   const token = localStorage.getItem("token");

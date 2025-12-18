@@ -1,14 +1,14 @@
 import React from 'react'
 import { HiOutlineSun, HiOutlineMoon, HiOutlineUser, HiOutlineHome } from "react-icons/hi";
 import {IoSettingsOutline} from "react-icons/io5"
-import { useTheme } from '../../hooks/useTheme';
-import { useAuth } from '../../hooks/useAuth';
+import {useTheme} from "@/hooks/useTheme"
+import { useAuth } from '@/features/auth/hooks/useAuth';
 import { Link, useLocation } from 'react-router-dom';
 
 const Nav = () => {
   const {pathname} = useLocation()
   const {theme, changeTheme} = useTheme()
-  const{user}= useAuth()
+  const {user} = useAuth()
   return (
     <div className='fixed z-999 inset-x-0 top-0 p-6 mb-8 flex justify-between items-center bg-neutral-100 dark:bg-neutral-950 transition-colors duration-150'>
       <div/>

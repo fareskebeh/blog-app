@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import FullLoader from "../fallback/FullLoader";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import FullLoader from "@/components/ui/FullLoader";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();

@@ -1,8 +1,8 @@
 import { HiOutlineMail } from "react-icons/hi"
 import { Link } from "react-router-dom"
-import Google from "../assets/img/google.svg"
-import Gh from "../assets/img/github.svg"
-import LkdIn from "../assets/img/linkedin.svg"
+import Google from "@/assets/img/google.svg"
+import Gh from "@/assets/img/github.svg"
+import LkdIn from "@/assets/img/linkedin.svg"
 
 
 const Login = () => {

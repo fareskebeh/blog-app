@@ -1,5 +1,5 @@
 import { motion as Motion } from "framer-motion";
-import LatestCard from "./LatestCard";
+import LatestCard from "@/features/posts/components/LatestCard";
 import {Link} from "react-router-dom"
 
 
