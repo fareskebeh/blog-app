@@ -17,7 +17,18 @@ PROD = os.getenv("PROD","").lower() in ('true', '1', 'yes')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'headers',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
