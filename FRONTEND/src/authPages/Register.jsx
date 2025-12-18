@@ -55,7 +55,7 @@ const Register = () => {
       return;
     }
 
-    axiosInit.post(`${import.meta.env.VITE_API_BASE}auth/registration/`, credentials, {
+    axiosInit.post(`/auth/registration/`, credentials, {
       headers: {
         "Content-Type": "application/json"
       }

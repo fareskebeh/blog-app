@@ -44,7 +44,7 @@ const EmailLogin = () => {
       })
       return
     }
-    axiosInit.post(`${import.meta.env.VITE_API_BASE}auth/login`, credentials, {
+    axiosInit.post(`/auth/login`, credentials, {
       headers: {
         "Content-Type": "application/json"
       }
