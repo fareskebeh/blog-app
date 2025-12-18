@@ -17,9 +17,7 @@ const EmailLogin = () => {
   })
   const validator = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
-  const submitForm = (e)=> {
-    e.preventDefault()
-
+  const submitForm = ()=> {
     setResponse({
       status: "loading",
       message:""
@@ -44,6 +42,7 @@ const EmailLogin = () => {
         status: "error",
         message: "Password must be at least 8 characters"
       })
+      return
     }
     axiosInit.post(`${import.meta.env.VITE_API_BASE}auth/login`, credentials, {
       headers: {
