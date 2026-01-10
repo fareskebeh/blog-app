@@ -11,7 +11,14 @@ const Nav = () => {
   const {user} = useAuth()
   return (
     <div className='fixed z-999 inset-x-0 top-0 p-6 mb-8 flex justify-between items-center bg-neutral-100 dark:bg-neutral-950 transition-colors duration-150'>
-      <div/>
+      <div>
+        { user &&
+          <button onClick={()=> {
+            localStorage.removeItem("token");
+            window.location.reload();
+          }} className={`${pathname!=="/" ? "" : "hidden"} text-white dark:text-black dark:bg-white bg-black p-2 text-sm rounded-xl cursor-pointer hover:opacity-90 active:opacity-80 transition duration-150 dark:text-[#707070]`}>Log Out</button>        
+        }
+      </div>
       <div className='flex items-center gap-4'>
         <Link to="/" className={`${pathname!=="/" ? "" : "hidden"} text-neutral-500 dark:text-[#707070]`}><HiOutlineHome size={24}/></Link>
         
